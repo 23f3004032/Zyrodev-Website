@@ -1,0 +1,275 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { mobileProjects, webProjects, aiProjects, videoProjects } from '@/app/lib/data';
+import { Project } from '@/app/lib/types';
+
+interface PortfolioModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const allProjects = [
+  ...mobileProjects,
+  ...webProjects,
+  ...aiProjects,
+  ...videoProjects
+];
+
+const categories = [
+  { id: 'all', name: 'All Projects', count: allProjects.length },
+  { id: 'mobile', name: 'Mobile Apps', count: mobileProjects.length },
+  { id: 'web', name: 'Web Development', count: webProjects.length },
+  { id: 'ai', name: 'AI/ML Solutions', count: aiProjects.length },
+  { id: 'video', name: 'Video Editing', count: videoProjects.length }
+];
+
+export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        if (selectedProject) {
+          setSelectedProject(null);
+        } else {
+          onClose();
+        }
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.addEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'hidden';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose, selectedProject]);
+
+  const getFilteredProjects = () => {
+    switch (activeCategory) {
+      case 'mobile': return mobileProjects;
+      case 'web': return webProjects;
+      case 'ai': return aiProjects;
+      case 'video': return videoProjects;
+      default: return allProjects;
+    }
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
+        <motion.div
+          ref={modalRef}
+          className="bg-charcoal/95 backdrop-blur-md rounded-2xl max-w-7xl w-full max-h-[90vh] overflow-hidden shadow-2xl border border-cyan-500/20"
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          exit={{ scale: 0.8, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          {selectedProject ? (
+            // Project Detail View
+            <div className="h-full overflow-y-auto">
+              <div className="p-8 border-b border-gray-700 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-4">
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                    >
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                      </svg>
+                    </button>
+                    <div>
+                      <h2 className="text-3xl font-bold text-white mb-2">{selectedProject.title}</h2>
+                      <p className="text-gray-400">{selectedProject.description}</p>
+                    </div>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-8">
+                <div className="grid lg:grid-cols-2 gap-8">
+                  <div>
+                    <img
+                      src={selectedProject.image}
+                      alt={selectedProject.title}
+                      className="w-full rounded-lg shadow-lg"
+                    />
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Project Overview</h3>
+                      <p className="text-gray-300 leading-relaxed">{selectedProject.description}</p>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Technologies Used</h3>
+                      <div className="flex flex-wrap gap-2">
+                        {selectedProject.technologies.map((tech, index) => (
+                          <span
+                            key={index}
+                            className="px-3 py-1 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 text-cyan-300 rounded-full text-sm border border-cyan-500/30"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h3 className="text-xl font-semibold text-white mb-3">Category</h3>
+                      <span className="inline-block px-4 py-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 text-purple-300 rounded-lg border border-purple-500/30">
+                        {selectedProject.category.charAt(0).toUpperCase() + selectedProject.category.slice(1)}
+                      </span>
+                    </div>
+
+                    {selectedProject.link && (
+                      <div>
+                        <h3 className="text-xl font-semibold text-white mb-3">Project Link</h3>
+                        <a
+                          href={selectedProject.link}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg hover:from-green-600 hover:to-emerald-600 transition-all"
+                        >
+                          View Project
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                          </svg>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : (
+            // Portfolio Grid View
+            <>
+              <div className="p-8 border-b border-gray-700 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
+                <div className="flex justify-between items-center">
+                  <div>
+                    <h2 className="text-3xl font-bold text-white mb-2">Our Portfolio</h2>
+                    <p className="text-gray-400">Showcasing our best work across different technologies</p>
+                  </div>
+                  <button
+                    onClick={onClose}
+                    className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors interactive"
+                  >
+                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Category Filter */}
+              <div className="p-8 border-b border-gray-700">
+                <div className="flex flex-wrap gap-4">
+                  {categories.map((category) => (
+                    <button
+                      key={category.id}
+                      onClick={() => setActiveCategory(category.id)}
+                      className={`px-6 py-3 rounded-lg transition-all flex items-center gap-2 ${
+                        activeCategory === category.id
+                          ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white'
+                          : 'bg-white/10 text-gray-300 hover:bg-white/20'
+                      }`}
+                    >
+                      {category.name}
+                      <span className="text-xs bg-white/20 px-2 py-1 rounded-full">
+                        {category.count}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Projects Grid */}
+              <div className="p-8 overflow-y-auto max-h-[60vh]">
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {getFilteredProjects().map((project, index) => (
+                    <motion.div
+                      key={`${project.category}-${index}`}
+                      className="group cursor-pointer"
+                      onClick={() => setSelectedProject(project)}
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <div className="relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-800 to-gray-900 border border-gray-700 hover:border-cyan-500/50 transition-all duration-300 group-hover:scale-105">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                        <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                          <h3 className="text-white font-semibold text-lg mb-1">{project.title}</h3>
+                          <p className="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            {project.description.slice(0, 100)}...
+                          </p>
+                        </div>
+                      </div>
+                      <div className="mt-4">
+                        <h3 className="text-white font-semibold text-lg group-hover:text-cyan-400 transition-colors">
+                          {project.title}
+                        </h3>
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {project.technologies.slice(0, 3).map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                          {project.technologies.length > 3 && (
+                            <span className="px-2 py-1 text-xs bg-gray-700 text-gray-300 rounded">
+                              +{project.technologies.length - 3}
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
+  );
+}
