@@ -18,31 +18,24 @@ body {
   font-family: 'Satoshi', 'Inter', sans-serif;
   background-color: #111111;
   color: white;
-  cursor: none;
   overflow-x: hidden;
+  /* Optimize rendering performance */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* Custom cursor styles */
-.cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 8px;
-  height: 8px;
-  background-color: #06b6d4;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transition: all 0.3s ease;
-  transform: translate(-50%, -50%);
+/* Performance optimizations */
+.gpu-accelerated {
+  /* Hardware acceleration for smooth animations */
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-.cursor.hovered {
-  width: 40px;
-  height: 40px;
-  background-color: rgba(6, 182, 212, 0.3);
-  backdrop-filter: blur(4px);
-  border: 1px solid rgba(6, 182, 212, 0.5);
+/* Optimize scroll performance */
+body, html {
+  scroll-behavior: auto; /* Let Lenis handle smooth scrolling */
+  will-change: auto;
 }
 
 /* Smooth scrolling */
@@ -173,4 +166,17 @@ a:hover,
 
 .glow:hover {
   box-shadow: 0 0 30px rgba(6, 182, 212, 0.5);
+}
+
+/* Ensure video phone mockups are completely stable - never disappear */
+.video-phone {
+  transform: none !important;
+  opacity: 1 !important;
+  transition: none !important;
+  will-change: auto !important;
+}
+
+.video-phone * {
+  pointer-events: auto !important;
+  transform: none !important;
 }

@@ -32,7 +32,8 @@ export default function MobileSection() {
           trigger: title,
           start: 'top 80%',
           end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none', // Don't reverse to prevent disappearing
+          once: true // Only animate once
         }
       }
     );

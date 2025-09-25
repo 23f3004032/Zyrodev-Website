@@ -46,7 +46,9 @@ export default function VideoSection() {
       }
     );
 
-    // Animate phones with persistent visibility
+    // Animate phones with completely stable end state
+    gsap.set('.video-phone', { clearProps: 'all' }); // Clear any previous animations
+    
     gsap.fromTo(
       '.video-phone',
       { y: 100, opacity: 0, scale: 0.8 },
@@ -57,12 +59,21 @@ export default function VideoSection() {
         duration: 0.8,
         stagger: 0.2,
         ease: 'power3.out',
+        onComplete: () => {
+          // Ensure final state is locked in
+          gsap.set('.video-phone', { 
+            y: 0, 
+            opacity: 1, 
+            scale: 1,
+            clearProps: 'transform,opacity' // Remove GSAP control after animation
+          });
+        },
         scrollTrigger: {
           trigger: '.phones-grid',
           start: 'top 85%',
           end: 'bottom 15%',
-          toggleActions: 'play none none none', // Don't reverse
-          once: true // Only animate once to prevent disappearing
+          toggleActions: 'play none none none',
+          once: true
         }
       }
     );
@@ -127,12 +138,9 @@ export default function VideoSection() {
           
           <div className="phones-grid grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             {portraitVideos.map((videoUrl: string, index: number) => (
-              <motion.div
+              <div
                 key={index}
                 className="video-phone h-[350px] md:h-[400px] mx-auto"
-                initial={{ opacity: 0, y: 100 }}
-                whileHover={{ scale: 1.05, y: -10 }}
-                transition={{ duration: 0.3 }}
               >
                 <PhoneMockup videoUrl={videoUrl} />
                 <div className="text-center mt-4">
@@ -140,7 +148,7 @@ export default function VideoSection() {
                     {['Instagram Reels', 'TikTok Content', 'YouTube Shorts'][index]}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

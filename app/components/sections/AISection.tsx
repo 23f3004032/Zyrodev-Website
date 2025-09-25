@@ -31,7 +31,8 @@ export default function AISection() {
           trigger: title,
           start: 'top 80%',
           end: 'bottom 20%',
-          toggleActions: 'play none none reverse'
+          toggleActions: 'play none none none', // Don't reverse to prevent disappearing
+          once: true // Only animate once
         }
       }
     );
@@ -130,7 +131,7 @@ export default function AISection() {
                 {/* Learn More Button */}
                 <motion.button
                   className="px-6 py-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-lg font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
-                  whileHover={{ scale: 1.05 }}
+                  whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   Learn More

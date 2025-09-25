@@ -1,23 +1,23 @@
 'use client';
 
 import './globals.css';
-import { useEffect, useState, ReactNode } from 'react';
+import { useEffect, ReactNode } from 'react';
 import Lenis from 'lenis';
+import CustomCursor from './components/CustomCursor';
 
 export default function RootLayout({
   children,
 }: {
   children: ReactNode;
 }) {
-  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
-
   useEffect(() => {
-    // Initialize Lenis smooth scrolling
+    // Initialize Lenis smooth scrolling with optimized settings for performance
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.0, // Slightly faster for better responsiveness
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      syncTouch: false, // Disable on touch for better mobile performance
+      touchMultiplier: 2,
     });
 
     function raf(time: number) {
@@ -27,58 +27,8 @@ export default function RootLayout({
 
     requestAnimationFrame(raf);
 
-    // Custom cursor functionality
-    const updateCursorPosition = (e: MouseEvent) => {
-      setCursorPosition({ x: e.clientX, y: e.clientY });
-    };
-
-    const handleMouseEnter = () => setIsHovered(true);
-    const handleMouseLeave = () => setIsHovered(false);
-
-    // Add cursor position listener
-    document.addEventListener('mousemove', updateCursorPosition);
-
-    // Add hover listeners to interactive elements
-    const interactiveElements = document.querySelectorAll(
-      'button, a, [role="button"], .interactive'
-    );
-    
-    interactiveElements.forEach((element) => {
-      element.addEventListener('mouseenter', handleMouseEnter);
-      element.addEventListener('mouseleave', handleMouseLeave);
-    });
-
-    // Observer to handle dynamically added elements
-    const observer = new MutationObserver((mutations) => {
-      mutations.forEach((mutation) => {
-        mutation.addedNodes.forEach((node) => {
-          if (node.nodeType === Node.ELEMENT_NODE) {
-            const element = node as Element;
-            const interactives = element.querySelectorAll(
-              'button, a, [role="button"], .interactive'
-            );
-            interactives.forEach((interactive) => {
-              interactive.addEventListener('mouseenter', handleMouseEnter);
-              interactive.addEventListener('mouseleave', handleMouseLeave);
-            });
-          }
-        });
-      });
-    });
-
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-    });
-
     return () => {
       lenis.destroy();
-      document.removeEventListener('mousemove', updateCursorPosition);
-      interactiveElements.forEach((element) => {
-        element.removeEventListener('mouseenter', handleMouseEnter);
-        element.removeEventListener('mouseleave', handleMouseLeave);
-      });
-      observer.disconnect();
     };
   }, []);
 
@@ -91,14 +41,8 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body className="bg-charcoal text-white overflow-x-hidden">
-        {/* Custom Cursor */}
-        <div
-          className={`cursor ${isHovered ? 'hovered' : ''}`}
-          style={{
-            left: `${cursorPosition.x}px`,
-            top: `${cursorPosition.y}px`,
-          }}
-        />
+        {/* Custom Sexy Cursor */}
+        <CustomCursor />
         
         {/* Main Content */}
         <main className="relative">

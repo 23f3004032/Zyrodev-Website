@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import CustomButton from './ui/CustomButton';
 
@@ -12,38 +12,52 @@ interface NavigationProps {
 export default function Navigation({ onOpenModal, onScrollToSection }: NavigationProps) {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
+  const scrollRef = useRef(0);
+  const lastScrollRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
 
-  // Throttled scroll handler for better performance
+  // Ultra-optimized scroll handler using refs to avoid re-renders
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
+    scrollRef.current = currentScrollY;
     
-    // Only update if scroll difference is significant (reduces re-renders)
-    if (Math.abs(currentScrollY - scrollY) > 5) {
+    // Only update state if scroll difference is significant (reduces re-renders dramatically)
+    if (Math.abs(currentScrollY - scrollY) > 10) {
       setScrollY(currentScrollY);
       
-      // Hide/show navigation based on scroll direction
-      setIsVisible(currentScrollY < 100 || currentScrollY < lastScrollY);
-      setLastScrollY(currentScrollY);
+      // Hide/show navigation based on scroll direction (smoother logic)
+      const shouldShow = currentScrollY < 50 || currentScrollY < lastScrollRef.current - 5;
+      setIsVisible(shouldShow);
     }
-  }, [scrollY, lastScrollY]);
+    
+    lastScrollRef.current = currentScrollY;
+  }, [scrollY]);
 
   useEffect(() => {
-    // Throttle scroll events for better performance
-    let ticking = false;
-    
-    const throttledHandleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
+    // Ultra-smooth scroll handling like cappen.com
+    const smoothScrollHandler = () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
       }
+      
+      rafRef.current = requestAnimationFrame(() => {
+        handleScroll();
+        rafRef.current = null;
+      });
     };
 
-    window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', throttledHandleScroll);
+    // Use passive listeners for maximum performance
+    window.addEventListener('scroll', smoothScrollHandler, { 
+      passive: true, 
+      capture: false 
+    });
+    
+    return () => {
+      window.removeEventListener('scroll', smoothScrollHandler);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+    };
   }, [handleScroll]);
 
   // Calculate background opacity based on scroll
