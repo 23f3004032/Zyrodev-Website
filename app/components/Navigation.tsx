@@ -2,176 +2,104 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import CustomButton from './ui/CustomButton';
+import CustomButton from './ui/CustomButton'; // Corrected import path using alias
 
 interface NavigationProps {
   onOpenModal: (modalName: string) => void;
   onScrollToSection: (sectionId: string) => void;
 }
 
-export default function Navigation({ onOpenModal, onScrollToSection }: NavigationProps) {
-  const [scrollY, setScrollY] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
-  const scrollRef = useRef(0);
-  const lastScrollRef = useRef(0);
-  const rafRef = useRef<number | null>(null);
+const navLinks = [
+  { id: 'portfolio', name: 'Portfolio', modal: 'portfolio' },
+  { id: 'about', name: 'About', modal: 'about' },
+  { id: 'contact', name: 'Contact', modal: 'contact' },
+];
 
-  // Ultra-optimized scroll handler using refs to avoid re-renders
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
-    scrollRef.current = currentScrollY;
-    
-    // Only update state if scroll difference is significant (reduces re-renders dramatically)
-    if (Math.abs(currentScrollY - scrollY) > 10) {
-      setScrollY(currentScrollY);
-      
-      // Hide/show navigation based on scroll direction (smoother logic)
-      const shouldShow = currentScrollY < 50 || currentScrollY < lastScrollRef.current - 5;
-      setIsVisible(shouldShow);
+export default function Navigation({ onOpenModal, onScrollToSection }: NavigationProps) {
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+
+const handleScroll = useCallback(() => {
+    if (window.scrollY < 100) {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
     }
-    
-    lastScrollRef.current = currentScrollY;
-  }, [scrollY]);
+}, []);
 
   useEffect(() => {
-    // Ultra-smooth scroll handling like cappen.com
-    const smoothScrollHandler = () => {
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-      
-      rafRef.current = requestAnimationFrame(() => {
-        handleScroll();
-        rafRef.current = null;
-      });
-    };
-
-    // Use passive listeners for maximum performance
-    window.addEventListener('scroll', smoothScrollHandler, { 
-      passive: true, 
-      capture: false 
-    });
-    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => {
-      window.removeEventListener('scroll', smoothScrollHandler);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
+      window.removeEventListener('scroll', handleScroll);
     };
   }, [handleScroll]);
-
-  // Calculate background opacity based on scroll
-  const backgroundOpacity = Math.min(scrollY / 300, 0.95);
-  
-  // Calculate text color based on scroll position
-  const getButtonVariant = () => {
-    if (scrollY > 200) return 'ghost';
-    return 'secondary';
-  };
-
-  // Check if navigation is interactive (scrolled enough to show glow)
-  const isInteractive = scrollY > 100;
 
   return (
     <AnimatePresence>
       {isVisible && (
-        <motion.nav
-          initial={{ y: -100 }}
-          animate={{ y: 0 }}
-          exit={{ y: -100 }}
-          className={`fixed top-0 right-0 z-50 p-6 rounded-bl-2xl transition-all duration-300 ${
-            isInteractive ? 'shadow-2xl shadow-cyan-500/20' : ''
-          }`}
-          style={{
-            background: `rgba(17, 17, 17, ${backgroundOpacity})`,
-            backdropFilter: backgroundOpacity > 0.1 ? 'blur(10px)' : 'none',
-            border: isInteractive ? '1px solid rgba(6, 182, 212, 0.3)' : 'none',
-          }}
+        <motion.header
+          initial={{ y: '-120%' }}
+          animate={{ y: '0%' }}
+          exit={{ y: '-120%' }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
+          className="fixed top-0 left-0 right-0 z-50"
         >
-          <div className="flex items-center space-x-4">
-            {/* Logo/Brand */}
-            <motion.div
-              className={`mr-8 cursor-pointer transition-all duration-300 ${
-                isInteractive ? 'drop-shadow-[0_0_10px_rgba(6,182,212,0.5)]' : ''
-              }`}
-              animate={{ 
-                color: scrollY > 200 ? '#06b6d4' : '#ffffff'
-              }}
-              onClick={() => onScrollToSection('hero')}
-              whileHover={{ scale: 1.05 }}
+          <div className="container mx-auto px-6 py-4">
+            <nav 
+              onMouseLeave={() => setHoveredLink(null)} // Reset hover when mouse leaves the nav bar
+              className="relative flex items-center justify-between p-2 rounded-xl bg-black/20 backdrop-blur-lg border border-white/10 shadow-lg"
             >
-              <h1 className="text-xl font-bold tracking-wide">ZYRODEV</h1>
-            </motion.div>
+              {/* Left Side: Logo */}
+              <div
+                onClick={() => onScrollToSection('hero')}
+                className="flex items-center gap-3 cursor-pointer group interactive"
+              >
+                <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
+                   <img src="/logo.svg" alt="Zyrodev Logo" className="w-full h-full" />
+                </div>
+                <h1 className="text-xl font-bold tracking-wide text-white group-hover:text-cyan-400 transition-colors">
+                  ZYRODEV
+                </h1>
+              </div>
 
-            {/* Section Navigation */}
-            <div className="hidden md:flex items-center space-x-2 mr-4">
-              {[
-                { id: 'mobile', name: 'Mobile' },
-                { id: 'web', name: 'Web' },
-                { id: 'ai', name: 'AI/ML' },
-                { id: 'video', name: 'Video' }
-              ].map((section) => (
-                <button
-                  key={section.id}
-                  onClick={() => onScrollToSection(section.id)}
-                  className={`px-3 py-2 text-sm font-medium text-gray-300 hover:text-cyan-400 transition-all duration-300 rounded-lg ${
-                    isInteractive ? 'hover:bg-cyan-500/10 hover:shadow-[0_0_15px_rgba(6,182,212,0.3)]' : ''
-                  }`}
+              {/* Center: Navigation Links with Sliding Pill */}
+              <div className="hidden md:flex items-center gap-2">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.id}
+                    onClick={() => onOpenModal(link.modal)}
+                    onMouseEnter={() => setHoveredLink(link.id)}
+                    className="relative px-5 py-2 text-sm font-bold text-gray-300 hover:text-white transition-colors duration-300"
+                  >
+                    {hoveredLink === link.id && (
+                      <motion.div
+                        className="absolute inset-0 bg-cyan-500/10 border border-cyan-500/30 rounded-lg"
+                        layoutId="navbar-pill"
+                        transition={{ type: 'spring', stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10">{link.name}</span>
+                  </button>
+                ))}
+              </div>
+
+              {/* Right Side: CTA Button */}
+              <div className="flex items-center">
+                <CustomButton
+                  variant="primary"
+                  size="sm"
+                  onClick={() => onOpenModal('meeting')}
+                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
                 >
-                  {section.name}
-                </button>
-              ))}
-            </div>
-
-            {/* Navigation Buttons */}
-            <div className="flex items-center space-x-3">
-              <CustomButton
-                variant={getButtonVariant()}
-                size="sm"
-                onClick={() => onOpenModal('portfolio')}
-                className={`transition-all duration-300 ${
-                  isInteractive ? 'hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]' : ''
-                }`}
-              >
-                Portfolio
-              </CustomButton>
-              
-              <CustomButton
-                variant={getButtonVariant()}
-                size="sm"
-                onClick={() => onOpenModal('about')}
-                className={`transition-all duration-300 ${
-                  isInteractive ? 'hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]' : ''
-                }`}
-              >
-                About Us
-              </CustomButton>
-              
-              <CustomButton
-                variant={getButtonVariant()}
-                size="sm"
-                onClick={() => onOpenModal('contact')}
-                className={`transition-all duration-300 ${
-                  isInteractive ? 'hover:shadow-[0_0_20px_rgba(6,182,212,0.4)]' : ''
-                }`}
-              >
-                Contact
-              </CustomButton>
-              
-              <CustomButton
-                variant="primary"
-                size="sm"
-                onClick={() => onOpenModal('meeting')}
-                className={`bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25 ${
-                  isInteractive ? 'shadow-[0_0_25px_rgba(6,182,212,0.6)] hover:shadow-[0_0_35px_rgba(6,182,212,0.8)]' : ''
-                }`}
-              >
-                Book Meeting
-              </CustomButton>
-            </div>
+                  Book Meeting
+                </CustomButton>
+              </div>
+            </nav>
           </div>
-        </motion.nav>
+        </motion.header>
       )}
     </AnimatePresence>
   );
 }
+

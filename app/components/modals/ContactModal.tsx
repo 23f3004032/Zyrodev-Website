@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Lenis from 'lenis'; // Import Lenis
+import Lenis from 'lenis'; 
 import { ContactForm } from '../../lib/types';
 import CustomButton from '../ui/CustomButton';
 
