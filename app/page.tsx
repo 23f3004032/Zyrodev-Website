@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useLenis } from './layout';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import MobileSection from './components/sections/MobileSection';
@@ -14,6 +15,16 @@ import PortfolioModal from './components/modals/PortfolioModal';
 
 export default function HomePage() {
   const [activeModal, setActiveModal] = useState<string | null>(null);
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (activeModal) {
+      lenis?.stop(); // Just stop Lenis
+    } else {
+      lenis?.start(); // Just restart Lenis
+    }
+  }, [activeModal, lenis]);
+  
 
   const openModal = (modalName: string) => {
     setActiveModal(modalName);

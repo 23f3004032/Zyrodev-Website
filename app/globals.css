@@ -180,3 +180,8 @@ a:hover,
   pointer-events: auto !important;
   transform: none !important;
 }
+
+.modal-scroll-content {
+  scroll-behavior: smooth;
+  overscroll-behavior: contain;
+}

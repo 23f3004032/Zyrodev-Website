@@ -139,20 +139,21 @@ export const videoProjects: Project[] = [
 // Team Members
 export const teamMembers: TeamMember[] = [
   {
-    id: 'ankit',
-    name: 'Ankit Sharma',
-    role: 'Lead Developer & Co-Founder',
-    expertise: ['Full-Stack Development', 'Mobile Apps', 'System Architecture', 'AI/ML Integration'],
-    description: 'Passionate about creating scalable solutions with 5+ years in software development. Specializes in modern web technologies and mobile app development with a focus on performance and user experience.'
+    id: 'puneet',
+    name: 'Puneet',
+    role: 'Tech Lead & Co-Founder',
+    expertise: ['AI/ML', 'App Development', 'Project Management'],
+    description: 'Consultant at Legalbook.io and Project Manager at IIT Madras with a core focus on AI/ML, App Development, and research in niche areas.',
   },
   {
-    id: 'puneet',
-    name: 'Puneet Singh',
-    role: 'Creative Director & Co-Founder',
-    expertise: ['UI/UX Design', 'Video Production', 'Brand Strategy', 'Creative Technology'],
-    description: 'Creative visionary with expertise in design and video production. Combines technical knowledge with artistic vision to deliver compelling digital experiences that tell powerful stories.'
+    id: 'ankit',
+    name: 'Ankit',
+    role: 'Brand Marketing Specialist & Co-Founder',
+    expertise: ['Brand Building', 'Marketing Strategy', 'Client Relations'],
+    description: 'A 2nd Year Student at IIT Madras who has worked with 10+ international clients from the UK, US, and Hungary. Expert in building and executing brand strategy.',
   }
 ];
+
 
 // Combined projects for legacy compatibility
 export const projects: Project[] = [

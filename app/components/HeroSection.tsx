@@ -1,23 +1,49 @@
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { useRef, useEffect, useState, useMemo } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { Float } from '@react-three/drei';
 import * as THREE from 'three';
+import { SVGLoader } from 'three-stdlib';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 
-// Rotating TorusKnot component
-function RotatingTorusKnot() {
-  const meshRef = useRef<THREE.Mesh>(null);
+// Rotating logo component
+function RotatingLogo() {
+  const meshRef = useRef<THREE.Group>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const svgData = useLoader(SVGLoader, '/logo.svg');
+
+  const logoGeometry = useMemo(() => {
+    const shapes = svgData.paths.flatMap((path: THREE.ShapePath) => path.toShapes(true));
+    
+    const extrudeSettings = {
+      steps: 2,
+      depth: 0.2, // How thick the logo is
+      bevelEnabled: true,
+      bevelThickness: 0.02,
+      bevelSize: 0.02,
+      bevelSegments: 5,
+    };
+
+    return new THREE.ExtrudeGeometry(shapes, extrudeSettings);
+  }, [svgData]);
+
+  // Center the geometry so it rotates around its middle
+  useEffect(() => {
+    logoGeometry.computeBoundingBox();
+    const center = new THREE.Vector3();
+    logoGeometry.boundingBox?.getCenter(center);
+    logoGeometry.center();
+  }, [logoGeometry]);
+
 
   useFrame((state) => {
     if (!meshRef.current) return;
     
     // Continuous rotation
-    meshRef.current.rotation.x += 0.01;
-    meshRef.current.rotation.y += 0.005;
+    meshRef.current.rotation.x += 0.002;
+    meshRef.current.rotation.y += 0.001;
     
     // Mouse parallax effect
     const { x, y } = mousePosition;
@@ -39,15 +65,20 @@ function RotatingTorusKnot() {
 
   return (
     <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
-      <mesh ref={meshRef} position={[0, 0, 0]}>
-        <torusKnotGeometry args={[1, 0.3, 128, 16]} />
-        <meshStandardMaterial
-          color="#06b6d4"
-          metalness={0.8}
-          roughness={0.1}
-          envMapIntensity={1}
-        />
-      </mesh>
+      {/* IMPORTANT: Adjust scale and position here to fit your scene.
+        Your SVG might be very large or small, so you will need to tweak these values.
+      */}
+      <group ref={meshRef} scale={0.01} position={[0, 0, 0]}>
+        <mesh geometry={logoGeometry}>
+          {/* Using the same material as before for consistency */}
+          <meshStandardMaterial
+            color="#06b6d4"
+            metalness={0.8}
+            roughness={0.1}
+            envMapIntensity={1}
+          />
+        </mesh>
+      </group>
     </Float>
   );
 }
@@ -124,13 +155,13 @@ export default function HeroSection() {
           <pointLight position={[-10, -10, -5]} intensity={0.5} color="#06b6d4" />
           
           {/* 3D Elements */}
-          <RotatingTorusKnot />
+          <RotatingLogo />
           <BackgroundGeometry />
         </Canvas>
       </div>
 
       {/* Foreground Content */}
-      <div className="relative z-10 flex items-center justify-center h-full">
+      <div className="relative z-10 flex items-center justify-center h-full ">
         <div className="text-center">
           <motion.h1
             ref={titleRef}
@@ -147,7 +178,7 @@ export default function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
           >
-            Engineering Digital Realities
+            Develop, Automate, Captivate
           </motion.h2>
 
           {/* Scroll indicator */}
