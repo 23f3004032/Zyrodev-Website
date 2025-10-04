@@ -14,10 +14,15 @@ export default function MobileSection() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const section = sectionRef.current;
-    const title = titleRef.current;
+    // Dynamically import ScrollTrigger to avoid SSR issues
+    const loadScrollTrigger = async () => {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      
+      const section = sectionRef.current;
+      const title = titleRef.current;
 
-    if (!section || !title) return;
+      if (!section || !title) return;
 
     // Animate title on scroll
     gsap.fromTo(
@@ -38,15 +43,14 @@ export default function MobileSection() {
       }
     );
 
-    return () => {
-      if (typeof window !== 'undefined') {
-        // Clean up scroll triggers
-        const ScrollTrigger = require('gsap/ScrollTrigger').ScrollTrigger;
+      return () => {
         ScrollTrigger.getAll().forEach((trigger: any) => {
           if (trigger.trigger === title) trigger.kill();
         });
-      }
+      };
     };
+    
+    loadScrollTrigger();
   }, []);
 
   return (

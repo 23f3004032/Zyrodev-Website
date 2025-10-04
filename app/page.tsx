@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useLenis } from './layout';
+import { useLenis } from './hooks/useLenis';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
 import MobileSection from './components/sections/MobileSection';
@@ -108,7 +108,7 @@ export default function HomePage() {
                 ankit@zyrodev.com
               </a>
               <a
-                href="https://linkedin.com/company/zyrodev"
+                href="https://www.linkedin.com/in/ankit-singh-117925249/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="interactive text-cyan-400 hover:text-cyan-300 transition-colors duration-300 flex items-center gap-2"
@@ -119,7 +119,7 @@ export default function HomePage() {
                 LinkedIn
               </a>
               <a
-                href="https://github.com/zyrodev"
+                href="https://github.com/brpuneet898"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="interactive text-cyan-400 hover:text-cyan-300 transition-colors duration-300 flex items-center gap-2"

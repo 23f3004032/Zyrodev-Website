@@ -9,13 +9,6 @@ import ProjectCard from './ProjectCard';
 import ProjectModal from './ProjectModal';
 
 // Dynamic import for ScrollTrigger to avoid SSR issues
-let ScrollTrigger: any;
-if (typeof window !== 'undefined') {
-  import('gsap/ScrollTrigger').then((module) => {
-    ScrollTrigger = module.ScrollTrigger;
-    gsap.registerPlugin(ScrollTrigger);
-  });
-}
 
 export default function ProjectShowcase() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -26,11 +19,16 @@ export default function ProjectShowcase() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const container = containerRef.current;
-    const scrollContainer = scrollContainerRef.current;
-    const title = titleRef.current;
+    // Dynamically import ScrollTrigger to avoid SSR issues
+    const loadScrollTrigger = async () => {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      
+      const container = containerRef.current;
+      const scrollContainer = scrollContainerRef.current;
+      const title = titleRef.current;
 
-    if (!container || !scrollContainer || !title) return;
+      if (!container || !scrollContainer || !title) return;
 
     // Title animation
     gsap.fromTo(
@@ -118,11 +116,12 @@ export default function ProjectShowcase() {
       );
     }
 
-    return () => {
-      if (ScrollTrigger) {
+      return () => {
         ScrollTrigger.getAll().forEach((trigger: any) => trigger.kill());
-      }
+      };
     };
+    
+    loadScrollTrigger();
   }, []);
 
   const handleProjectClick = (project: Project) => {

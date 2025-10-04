@@ -2,15 +2,10 @@
 'use client';
 
 import './globals.css';
-import { useEffect, useState, createContext, useContext, ReactNode } from 'react'; // Import createContext and useContext
+import { useEffect, useState, ReactNode } from 'react';
 import Lenis from 'lenis';
 import CustomCursor from './components/CustomCursor';
-
-// Create a context to hold the Lenis instance
-const LenisContext = createContext<Lenis | null>(null);
-
-// Custom hook to easily access the Lenis instance
-export const useLenis = () => useContext(LenisContext);
+import { LenisContext } from './hooks/useLenis';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   const [lenis, setLenis] = useState<Lenis | null>(null);

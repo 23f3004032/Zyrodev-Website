@@ -14,10 +14,15 @@ export default function WebSection() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const section = sectionRef.current;
-    const title = titleRef.current;
+    // Dynamically import ScrollTrigger to avoid SSR issues
+    const loadScrollTrigger = async () => {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      
+      const section = sectionRef.current;
+      const title = titleRef.current;
 
-    if (!section || !title) return;
+      if (!section || !title) return;
 
     gsap.fromTo(
       title,
@@ -31,11 +36,14 @@ export default function WebSection() {
           trigger: title,
           start: 'top 80%',
           end: 'bottom 20%',
-          toggleActions: 'play none none none', // Don't reverse to prevent disappearing
-          once: true // Only animate once
+          toggleActions: 'play none none reverse',
+          once: true
         }
       }
     );
+    };
+    
+    loadScrollTrigger();
   }, []);
 
   return (
@@ -106,7 +114,7 @@ export default function WebSection() {
                 {/* View Project Button */}
                 <motion.button
                   className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded-lg font-medium hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
-                  whileHover={{ scale: 1.02 }}
+                  whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >
                   View Project Details

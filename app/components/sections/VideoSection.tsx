@@ -22,10 +22,15 @@ export default function VideoSection() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const section = sectionRef.current;
-    const title = titleRef.current;
+    // Dynamically import ScrollTrigger to avoid SSR issues
+    const loadScrollTrigger = async () => {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
+      
+      const section = sectionRef.current;
+      const title = titleRef.current;
 
-    if (!section || !title) return;
+      if (!section || !title) return;
 
     // Title animation with improved ScrollTrigger
     gsap.fromTo(
@@ -97,6 +102,9 @@ export default function VideoSection() {
         }
       }
     );
+    };
+    
+    loadScrollTrigger();
   }, []);
 
   return (
