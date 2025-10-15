@@ -3,7 +3,8 @@ export interface Project {
   title: string;
   category: string;
   type: 'mobile' | 'web' | 'ml' | 'video'; // Added video type
-  videoUrl: string;
+  videoUrl?: string; // Made optional for AI projects using images
+  imageUrl?: string; // For AI/ML projects using static images
   projectLink?: string;
   description: string;
   technologies: string[];

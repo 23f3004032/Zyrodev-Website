@@ -44,25 +44,102 @@ export const mobileProjects: Project[] = [
 export const webProjects: Project[] = [
   {
     id: 'web-1',
-    title: 'E-commerce Platform',
-    category: 'E-commerce & Retail',
+    title: 'Lal Sweets',
+    category: 'E-commerce & Food',
     type: 'web',
-    videoUrl: '/videos/ecommerce-web.mp4',
-    description: 'Full-stack e-commerce solution with advanced analytics, inventory management, and multi-vendor support.',
-    technologies: ['Next.js', 'PostgreSQL', 'Stripe', 'Redis'],
+    videoUrl: '/videos/web/lalsweets.mp4',
+    description: 'Premium online sweet shop delivering traditional Indian sweets with modern e-commerce experience.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Stripe'],
     year: '2024',
-    link: 'https://ecommerce-demo.zyrodev.com'
+    link: 'https://www.lalsweets.com/'
   },
   {
     id: 'web-2',
-    title: 'Real Estate Dashboard',
-    category: 'PropTech & Analytics',
+    title: 'Plutope',
+    category: 'SaaS Platform',
     type: 'web',
-    videoUrl: '/videos/realestate-dashboard.mp4',
-    description: 'Advanced analytics dashboard for real estate professionals with market insights and property valuations.',
-    technologies: ['Vue.js', 'D3.js', 'Node.js', 'MongoDB'],
+    videoUrl: '/videos/web/pluetope.mp4',
+    description: 'Innovative business management platform with analytics and workflow automation.',
+    technologies: ['Next.js', 'TypeScript', 'PostgreSQL', 'AWS'],
+    year: '2024',
+    link: 'https://www.plutope.io/'
+  },
+  {
+    id: 'web-3',
+    title: 'E-Grocer',
+    category: 'E-commerce & Grocery',
+    type: 'web',
+    videoUrl: '/videos/web/eGrocer.mp4',
+    description: 'Full-featured online grocery platform with real-time inventory and delivery management.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'Redis'],
+    year: '2024',
+    link: 'https://egrocerweb.wrteam.me'
+  },
+  {
+    id: 'web-4',
+    title: 'Go Fresh',
+    category: 'Food Delivery',
+    type: 'web',
+    videoUrl: '/videos/web/gofresh.mp4',
+    description: 'Fresh produce delivery platform connecting farmers directly with consumers.',
+    technologies: ['Vue.js', 'Laravel', 'MySQL', 'Socket.io'],
     year: '2023',
-    link: 'https://realestate-dashboard.zyrodev.com'
+    link: 'https://grofresh-web.6amtech.com/'
+  },
+  {
+    id: 'web-5',
+    title: 'My Farmer Friend',
+    category: 'Agriculture Tech',
+    type: 'web',
+    videoUrl: '/videos/web/myfarmerfriend.mp4',
+    description: 'Connecting farmers with buyers through innovative digital marketplace.',
+    technologies: ['React', 'Express', 'PostgreSQL', 'Stripe'],
+    year: '2024',
+    link: 'https://myfarmerfriend.com'
+  },
+  {
+    id: 'web-6',
+    title: 'Scott Empringham Portfolio',
+    category: 'Portfolio Website',
+    type: 'web',
+    videoUrl: '/videos/web/scott.mp4',
+    description: 'Modern portfolio website with interactive features and dynamic content management.',
+    technologies: ['Next.js', 'Tailwind', 'Strapi', 'Cloudflare'],
+    year: '2023',
+    link: 'https://scottempringham.com'
+  },
+  {
+    id: 'web-7',
+    title: 'Plum Goodness',
+    category: 'E-commerce & Wellness',
+    type: 'web',
+    videoUrl: '/videos/web/plumgood.mp4',
+    description: 'Premium wellness and lifestyle products with seamless shopping experience.',
+    technologies: ['Shopify', 'React', 'GraphQL', 'Node.js'],
+    year: '2024',
+    link: 'https://plumgoodness.com/'
+  },
+  {
+    id: 'web-8',
+    title: 'Inter Trade',
+    category: 'B2B Platform',
+    type: 'web',
+    videoUrl: '/videos/web/intertrade.mp4',
+    description: 'International trading platform facilitating cross-border business transactions.',
+    technologies: ['Angular', 'Java', 'Spring Boot', 'Oracle'],
+    year: '2023',
+    link: 'https://intertradeindia.co.in'
+  },
+  {
+    id: 'web-9',
+    title: 'CA Portfolio',
+    category: 'Professional Services',
+    type: 'web',
+    videoUrl: '/videos/web/appforCA.mp4',
+    description: 'Comprehensive digital platform for Chartered Accountants and financial professionals.',
+    technologies: ['React', 'Node.js', 'MongoDB', 'AWS'],
+    year: '2024',
+    link: 'https://www.caknj.com/'
   }
 ];
 
@@ -70,25 +147,80 @@ export const webProjects: Project[] = [
 export const aiProjects: Project[] = [
   {
     id: 'ai-1',
-    title: 'AI Recommendation Engine',
-    category: 'Machine Learning',
+    title: 'AI CAD Processor Agent',
+    category: 'Computer-Aided Design AI',
     type: 'ml',
-    videoUrl: '/videos/ml-engine.mp4',
-    description: 'Intelligent recommendation system using deep learning for personalized content and product suggestions.',
-    technologies: ['Python', 'TensorFlow', 'FastAPI', 'Docker'],
-    year: '2023',
-    link: 'https://github.com/zyrodev/ai-recommendation-engine'
+    imageUrl: '/images/aiml/BOICAD/BOICAD1.jpg',
+    description: 'Advanced CAD system powered by AI for automated design generation and optimization.',
+    technologies: ['Python', 'TensorFlow', 'CAD API', 'React'],
+    year: '2024',
+    link: 'https://huggingface.co/spaces/brpuneet898/boi-cad-demo'
   },
   {
     id: 'ai-2',
-    title: 'Computer Vision Analytics',
-    category: 'AI & Computer Vision',
+    title: 'Breast Cancer (HealthCare Organization) Dashboard',
+    category: 'Medical AI & Healthcare',
     type: 'ml',
-    videoUrl: '/videos/cv-analytics.mp4',
-    description: 'Real-time computer vision system for object detection, tracking, and behavioral analysis.',
-    technologies: ['Python', 'OpenCV', 'PyTorch', 'FastAPI'],
+    imageUrl: '/images/aiml/breastcancer/breastcancer.jpg',
+    description: 'AI-powered medical imaging analysis dashboard for early breast cancer detection using deep learning.',
+    technologies: ['Python', 'TensorFlow', 'Medical Imaging', 'Flask'],
     year: '2024',
-    link: 'https://github.com/zyrodev/cv-analytics'
+    link: 'https://huggingface.co/spaces/brpuneet898/canbrs-dashboard'
+  },
+  {
+    id: 'ai-3',
+    title: 'FedEx Supply Chain Dashboard',
+    category: 'Logistics & Supply Chain AI',
+    type: 'ml',
+    imageUrl: '/images/aiml/fedex/fedex1.jpg',
+    description: 'Intelligent supply chain tracking and optimization dashboard for logistics management.',
+    technologies: ['Python', 'Machine Learning', 'API Integration', 'Node.js'],
+    year: '2023',
+    link: 'https://huggingface.co/spaces/brpuneet898/supply-chain-dashboard'
+  },
+  {
+    id: 'ai-4',
+    title: 'Indonesian Chat and Voice Agent',
+    category: 'NLP & Conversational AI',
+    type: 'ml',
+    imageUrl: '/images/aiml/indonesianchatbot/indonesianchatbot.jpg',
+    description: 'Natural language processing chatbot with voice capabilities for Indonesian language.',
+    technologies: ['Python', 'NLP', 'Transformer Models', 'FastAPI'],
+    year: '2024',
+    link: 'https://huggingface.co/spaces/pranshh/indonesian-bot'
+  },
+  {
+    id: 'ai-5',
+    title: 'Log Data Processor Agent',
+    category: 'Data Analytics & AI',
+    type: 'ml',
+    imageUrl: '/images/aiml/logdataprocessor/logdataprocessor.jpg',
+    description: 'Automated log analysis and anomaly detection system using machine learning algorithms.',
+    technologies: ['Python', 'Pandas', 'Scikit-learn', 'Elasticsearch'],
+    year: '2023',
+    link: 'https://dave-19-log-data-prototype.hf.space/'
+  },
+  {
+    id: 'ai-6',
+    title: 'Predictive Analytics Intelligent Agent Tool',
+    category: 'Predictive Analytics & AI',
+    type: 'ml',
+    imageUrl: '/images/aiml/predictiveanalysistool/predictiveintelligencetool1.jpg',
+    description: 'Advanced predictive analytics platform with intelligent agent for business intelligence and forecasting.',
+    technologies: ['Python', 'Machine Learning', 'Time Series', 'Django'],
+    year: '2024',
+    link: 'https://huggingface.co/spaces/brpuneet898/predictive-intelligence-tool'
+  },
+  {
+    id: 'ai-7',
+    title: 'RAG Based Similarity Finder Agent',
+    category: 'Retrieval-Augmented Generation',
+    type: 'ml',
+    imageUrl: '/images/aiml/RAGsimilarity/RAGSimilarity.jpg',
+    description: 'Retrieval-augmented generation system for intelligent document search and similarity matching.',
+    technologies: ['Python', 'LangChain', 'Vector DB', 'Streamlit'],
+    year: '2024',
+    link: 'https://rag-similarity-app-jbsxxhbuqfrtupkdl4ukrb.streamlit.app/'
   }
 ];
 

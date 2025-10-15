@@ -121,8 +121,8 @@ export default function MobileSection() {
             className="w-full lg:w-1/2 flex justify-center items-center"
             style={{ perspective: '1000px' }}
           >
-            <div className="h-[600px] w-full max-w-md">
-              <PhoneMockup videoUrl={currentApp.videoUrl} />
+              <div className="h-[600px] w-full max-w-md">
+              <PhoneMockup videoUrl={currentApp.videoUrl || ''} />
             </div>
           </div>
 
