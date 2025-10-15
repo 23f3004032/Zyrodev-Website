@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis'; // Import Lenis
-import { mobileProjects, webProjects, aiProjects, videoProjects } from '@/app/lib/data';
+import { mobileProjects, webProjects, aiProjects } from '@/app/lib/data';
 import { Project } from '@/app/lib/types';
 
 interface PortfolioModalProps {
@@ -14,16 +14,14 @@ interface PortfolioModalProps {
 const allProjects = [
   ...mobileProjects,
   ...webProjects,
-  ...aiProjects,
-  ...videoProjects
+  ...aiProjects
 ];
 
 const categories = [
   { id: 'all', name: 'All Projects', count: allProjects.length },
   { id: 'mobile', name: 'Mobile Apps', count: mobileProjects.length },
   { id: 'web', name: 'Web Development', count: webProjects.length },
-  { id: 'ai', name: 'AI/ML Solutions', count: aiProjects.length },
-  { id: 'video', name: 'Video Editing', count: videoProjects.length }
+  { id: 'ai', name: 'AI/ML Solutions', count: aiProjects.length }
 ];
 
 export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps) {
@@ -62,7 +60,6 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
       case 'mobile': return mobileProjects;
       case 'web': return webProjects;
       case 'ai': return aiProjects;
-      case 'video': return videoProjects;
       default: return allProjects;
     }
   };

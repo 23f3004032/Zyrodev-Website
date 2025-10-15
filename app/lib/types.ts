@@ -8,8 +8,9 @@ export interface Project {
   description: string;
   technologies: string[];
   year?: string;
-  image: string;
+  image?: string; // Made optional as we're using videos
   link?: string;
+  testimonial?: string; // Customer feedback/testimonial
 }
 
 export interface CursorPosition {

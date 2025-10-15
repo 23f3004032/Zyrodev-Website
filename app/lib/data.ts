@@ -4,39 +4,39 @@ import { Project, TeamMember } from './types';
 export const mobileProjects: Project[] = [
   {
     id: 'mobile-1',
-    title: 'Fintech Banking App',
-    category: 'Mobile Banking',
+    title: 'WalkWins',
+    category: 'Health & Fitness',
     type: 'mobile',
-    videoUrl: '/videos/fintech-app.mp4',
-    description: 'Secure mobile banking solution with biometric authentication, real-time transactions, and investment tracking.',
-    technologies: ['React Native', 'TypeScript', 'Firebase', 'Plaid API'],
+    videoUrl: '/videos/app/walkwins-app.mp4',
+    description: 'Track your daily steps and achieve your fitness goals with our intelligent step counting application. Get real-time insights, set personalized targets, and stay motivated with achievement badges and progress analytics.',
+    technologies: ['React Native', 'TypeScript', 'HealthKit', 'CoreMotion'],
     year: '2024',
-    image: '/images/mobile/fintech-app.jpg',
-    link: 'https://github.com/zyrodev/fintech-app'
+    testimonial: "The Walkwins app exceeded all our expectations, and that's largely thanks to Ankit. His communication was consistently clear and smooth, and he provided proactive updates throughout the entire development process. This transparent partnership ensured the final product was exactly what we envisioned and more.",
+    link: 'https://apps.apple.com/walkwins'
   },
   {
     id: 'mobile-2',
-    title: 'Fitness Tracker Pro',
-    category: 'Health & Fitness',
+    title: 'Breathe Yoga',
+    category: 'Wellness & Meditation',
     type: 'mobile',
-    videoUrl: '/videos/fitness-tracker.mp4',
-    description: 'Comprehensive fitness tracking with AI-powered workout recommendations and nutrition planning.',
-    technologies: ['Flutter', 'Dart', 'HealthKit', 'TensorFlow Lite'],
+    videoUrl: '/videos/app/breatheyoga.mp4',
+    description: 'Discover inner peace with guided meditation sessions and professional yoga classes. Experience personalized wellness programs, breathing exercises, and mindfulness techniques designed for all skill levels.',
+    technologies: ['Flutter', 'Dart', 'Firebase', 'Video Streaming'],
     year: '2024',
-    image: '/images/mobile/fitness-tracker.jpg',
-    link: 'https://apps.apple.com/fitness-tracker-pro'
+    testimonial: "Puneet's technical expertise was the driving force behind the Breathe Yoga app. He masterfully engineered a fast, reliable, and beautifully functional application, translating our complex design concepts into a seamless user experience. His skill was evident in every detail of the final product.",
+    link: 'https://play.google.com/store/apps/details?id=breathe.yoga&hl=en_IN'
   },
   {
     id: 'mobile-3',
-    title: 'Smart Home Control',
-    category: 'IoT & Smart Home',
+    title: 'E-Grocer',
+    category: 'E-commerce & Shopping',
     type: 'mobile',
-    videoUrl: '/videos/smart-home.mp4',
-    description: 'Unified mobile interface for controlling smart home devices with automation and energy monitoring.',
-    technologies: ['React Native', 'MQTT', 'AWS IoT', 'Node.js'],
+    videoUrl: '/videos/app/eGrocer.mp4',
+    description: 'Your one-stop solution for fresh groceries delivered to your doorstep. Browse thousands of products, enjoy exclusive deals, and experience seamless checkout with real-time order tracking and scheduled deliveries.',
+    technologies: ['React Native', 'Node.js', 'MongoDB', 'Stripe API'],
     year: '2024',
-    image: '/images/mobile/smart-home.jpg',
-    link: 'https://github.com/zyrodev/smart-home-control'
+    testimonial: "Zyrodev delivered an exceptional platform with our E-Grocer app. They built a robust, scalable solution that handles our complex inventory and provides a seamless shopping experience for our customers. Their professionalism and technical expertise have directly contributed to a significant increase in our online sales.",
+    link: 'https://play.google.com/store/apps/details?id=com.wrteam.egrocer'
   }
 ];
 
@@ -51,7 +51,6 @@ export const webProjects: Project[] = [
     description: 'Full-stack e-commerce solution with advanced analytics, inventory management, and multi-vendor support.',
     technologies: ['Next.js', 'PostgreSQL', 'Stripe', 'Redis'],
     year: '2024',
-    image: '/images/web/ecommerce-platform.jpg',
     link: 'https://ecommerce-demo.zyrodev.com'
   },
   {
@@ -63,7 +62,6 @@ export const webProjects: Project[] = [
     description: 'Advanced analytics dashboard for real estate professionals with market insights and property valuations.',
     technologies: ['Vue.js', 'D3.js', 'Node.js', 'MongoDB'],
     year: '2023',
-    image: '/images/web/realestate-dashboard.jpg',
     link: 'https://realestate-dashboard.zyrodev.com'
   }
 ];
@@ -79,7 +77,6 @@ export const aiProjects: Project[] = [
     description: 'Intelligent recommendation system using deep learning for personalized content and product suggestions.',
     technologies: ['Python', 'TensorFlow', 'FastAPI', 'Docker'],
     year: '2023',
-    image: '/images/ai/recommendation-engine.jpg',
     link: 'https://github.com/zyrodev/ai-recommendation-engine'
   },
   {
@@ -91,48 +88,7 @@ export const aiProjects: Project[] = [
     description: 'Real-time computer vision system for object detection, tracking, and behavioral analysis.',
     technologies: ['Python', 'OpenCV', 'PyTorch', 'FastAPI'],
     year: '2024',
-    image: '/images/ai/computer-vision.jpg',
     link: 'https://github.com/zyrodev/cv-analytics'
-  }
-];
-
-// Video Editing Projects
-export const videoProjects: Project[] = [
-  {
-    id: 'video-1',
-    title: 'Brand Story Campaign',
-    category: 'Brand Storytelling',
-    type: 'video',
-    videoUrl: '/videos/brand-story.mp4',
-    description: 'Cinematic brand storytelling with motion graphics and professional color grading.',
-    technologies: ['Premiere Pro', 'After Effects', 'DaVinci Resolve'],
-    year: '2024',
-    image: '/images/video/brand-story.jpg',
-    link: 'https://vimeo.com/brand-story-campaign'
-  },
-  {
-    id: 'video-2',
-    title: 'Product Launch Videos',
-    category: 'Product Marketing',
-    type: 'video',
-    videoUrl: '/videos/product-launch.mp4',
-    description: 'High-impact product launch videos with 3D animations and dynamic transitions.',
-    technologies: ['Cinema 4D', 'After Effects', 'Premiere Pro'],
-    year: '2024',
-    image: '/images/video/product-launch.jpg',
-    link: 'https://youtube.com/product-launch-showcase'
-  },
-  {
-    id: 'video-3',
-    title: 'Social Media Content',
-    category: 'Social Media',
-    type: 'video',
-    videoUrl: '/videos/social-content.mp4',
-    description: 'Engaging social media content optimized for various platforms and formats.',
-    technologies: ['After Effects', 'Premiere Pro', 'Figma'],
-    year: '2024',
-    image: '/images/video/social-content.jpg',
-    link: 'https://instagram.com/zyrodev/reels'
   }
 ];
 
@@ -159,6 +115,5 @@ export const teamMembers: TeamMember[] = [
 export const projects: Project[] = [
   ...mobileProjects,
   ...webProjects,
-  ...aiProjects,
-  ...videoProjects
+  ...aiProjects
 ];

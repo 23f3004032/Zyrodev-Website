@@ -7,7 +7,6 @@ import HeroSection from './components/HeroSection';
 import MobileSection from './components/sections/MobileSection';
 import WebSection from './components/sections/WebSection';
 import AISection from './components/sections/AISection';
-import VideoSection from './components/sections/VideoSection';
 import ContactModal from './components/modals/ContactModal';
 import AboutModal from './components/modals/AboutModal';
 import BookMeetingModal from './components/modals/BookMeetingModal';
@@ -65,11 +64,6 @@ export default function HomePage() {
         {/* AI/ML Section */}
         <section id="ai">
           <AISection />
-        </section>
-        
-        {/* Video Editing Section */}
-        <section id="video">
-          <VideoSection />
         </section>
         
         {/* Footer */}
@@ -145,7 +139,6 @@ export default function HomePage() {
                     <li>Mobile App Development</li>
                     <li>Web Development</li>
                     <li>AI/ML Solutions</li>
-                    <li>Video Production</li>
                   </ul>
                 </div>
                 <div>
