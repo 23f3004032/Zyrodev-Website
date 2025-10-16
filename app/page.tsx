@@ -18,10 +18,16 @@ export default function HomePage() {
 
   useEffect(() => {
     if (activeModal) {
-      lenis?.stop(); // Just stop Lenis
+      lenis?.stop(); // Stop Lenis when modal is open
+      document.body.style.overflow = 'hidden'; // Prevent background scroll
     } else {
-      lenis?.start(); // Just restart Lenis
+      lenis?.start(); // Restart Lenis when modal closes
+      document.body.style.overflow = ''; // Restore scroll
     }
+    
+    return () => {
+      document.body.style.overflow = ''; // Cleanup
+    };
   }, [activeModal, lenis]);
   
 

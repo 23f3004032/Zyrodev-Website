@@ -36,7 +36,6 @@ export default function AISection() {
           scrollTrigger: {
             trigger: title,
             start: 'top 80%',
-            end: 'bottom 20%',
             toggleActions: 'play none none none',
             once: true
           }
@@ -91,7 +90,7 @@ export default function AISection() {
         <motion.h2
           ref={titleRef}
           className="text-4xl md:text-6xl font-bold text-center mb-4 text-gradient"
-          initial={{ opacity: 0, y: 50 }}
+          style={{ opacity: 1 }}
         >
           AI & Machine Learning
         </motion.h2>

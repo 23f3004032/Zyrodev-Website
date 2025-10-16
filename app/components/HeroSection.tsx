@@ -70,12 +70,14 @@ function RotatingLogo() {
       */}
       <group ref={meshRef} scale={0.01} position={[0, 0, 0]}>
         <mesh geometry={logoGeometry}>
-          {/* Using the same material as before for consistency */}
+          {/* Enhanced material with emissive glow for better visibility */}
           <meshStandardMaterial
             color="#06b6d4"
-            metalness={0.8}
+            emissive="#06b6d4"
+            emissiveIntensity={0.4}
+            metalness={0.9}
             roughness={0.1}
-            envMapIntensity={1}
+            envMapIntensity={1.5}
           />
         </mesh>
       </group>
@@ -149,10 +151,12 @@ export default function HeroSection() {
           dpr={[1, 2]}
           performance={{ min: 0.5 }}
         >
-          {/* Lighting */}
-          <ambientLight intensity={0.2} />
-          <directionalLight position={[10, 10, 5]} intensity={1} />
-          <pointLight position={[-10, -10, -5]} intensity={0.5} color="#06b6d4" />
+          {/* Enhanced Lighting for better logo visibility */}
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1.5} />
+          <directionalLight position={[-10, -10, -5]} intensity={0.8} />
+          <pointLight position={[-10, -10, -5]} intensity={1} color="#06b6d4" />
+          <pointLight position={[10, 10, 5]} intensity={0.8} color="#0ea5e9" />
           
           {/* 3D Elements */}
           <RotatingLogo />

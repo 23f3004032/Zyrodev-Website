@@ -37,7 +37,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: 'Email sent successfully!' }, { status: 200 });
   } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: 'Failed to send email.' }, { status: 500 });
+    console.error('Book Meeting Error:', error);
+    return NextResponse.json({ 
+      message: 'Failed to send email. Please check your email configuration.',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
 }

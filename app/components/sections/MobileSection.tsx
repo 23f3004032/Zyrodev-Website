@@ -15,13 +15,6 @@ export default function MobileSection() {
   const [currentAppIndex, setCurrentAppIndex] = useState(0);
   const currentApp = mobileProjects[currentAppIndex];
 
-  // Debug log
-  useEffect(() => {
-    console.log('Mobile Projects Total:', mobileProjects.length);
-    console.log('Current Index:', currentAppIndex);
-    console.log('Current App:', currentApp?.title);
-  }, [currentAppIndex]);
-
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -45,7 +38,6 @@ export default function MobileSection() {
           scrollTrigger: {
             trigger: title,
             start: 'top 80%',
-            end: 'bottom 20%',
             toggleActions: 'play none none none',
             once: true
           }
@@ -103,7 +95,7 @@ export default function MobileSection() {
         <motion.h2
           ref={titleRef}
           className="text-4xl md:text-6xl font-bold text-center mb-4 text-gradient"
-          initial={{ opacity: 0, y: 50 }}
+          style={{ opacity: 1 }}
         >
           Mobile Applications
         </motion.h2>
