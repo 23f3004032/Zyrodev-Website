@@ -184,31 +184,31 @@ export default function HeroSection() {
           >
             Develop, Automate, Captivate
           </motion.h2>
-
-          {/* Scroll indicator */}
-          <motion.div
-            className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 2, duration: 1 }}
-          >
-            <div className="flex flex-col items-center">
-              <span className="text-sm text-gray-400 mb-2">Scroll to explore</span>
-              <motion.div
-                className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center"
-                animate={{ y: [0, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <motion.div
-                  className="w-1 h-3 bg-cyan-500 rounded-full mt-2"
-                  animate={{ y: [0, 12, 0] }}
-                  transition={{ duration: 2, repeat: Infinity }}
-                />
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </div>
+
+      {/* Scroll indicator - Positioned relative to section, not inner div */}
+      <motion.div
+        className="absolute bottom-8 left-0 right-0 z-20 flex justify-center"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 2, duration: 1 }}
+      >
+        <div className="flex flex-col items-center">
+          <span className="text-sm text-gray-400 mb-2">Scroll to explore</span>
+          <motion.div
+            className="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center"
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+          >
+            <motion.div
+              className="w-1 h-3 bg-cyan-500 rounded-full mt-2"
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+            />
+          </motion.div>
+        </div>
+      </motion.div>
 
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent z-5" />
