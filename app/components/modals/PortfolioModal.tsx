@@ -28,6 +28,17 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
   const scrollContainerRef = useRef<HTMLDivElement>(null); // Ref for scrollable part
   const [activeCategory, setActiveCategory] = useState('mobile');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // This useEffect manages the Lenis instance for the current view (grid or detail)
   useEffect(() => {
@@ -229,37 +240,37 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
           ) : (
             // ## PORTFOLIO GRID VIEW ##
             <>
-              {/* Static Header for Grid View */}
-              <div className="p-8 border-b border-gray-700 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 z-10">
-                <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-8">
-                    <div>
-                      <h2 className="text-3xl font-bold text-white mb-2">Our Portfolio</h2>
-                      <p className="text-gray-400">Showcasing our best work across different technologies</p>
+              {/* Static Header for Grid View - Responsive */}
+              <div className={`border-b border-gray-700 bg-gradient-to-r from-cyan-900/20 to-blue-900/20 z-10 ${isMobile ? 'p-4' : 'p-8'}`}>
+                <div className="flex justify-between items-start gap-4">
+                  <div className="flex items-center gap-3 md:gap-8 flex-1">
+                    <div className="flex-1">
+                      <h2 className={`font-bold text-white ${isMobile ? 'text-xl mb-1' : 'text-3xl mb-2'}`}>Our Portfolio</h2>
+                      {!isMobile && <p className="text-gray-400">Showcasing our best work across different technologies</p>}
                     </div>
                     {/* Total Projects Stat */}
-                    <div className="text-center px-6 py-3 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl border border-cyan-500/30">
-                      <div className="text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">{allProjects.length}</div>
-                      <div className="text-xs text-gray-400 uppercase mt-1">Total Projects</div>
+                    <div className={`text-center bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-xl border border-cyan-500/30 flex-shrink-0 ${isMobile ? 'px-3 py-2' : 'px-6 py-3'}`}>
+                      <div className={`font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent ${isMobile ? 'text-2xl' : 'text-4xl'}`}>{allProjects.length}</div>
+                      <div className={`text-gray-400 uppercase mt-1 ${isMobile ? 'text-[10px]' : 'text-xs'}`}>Total Projects</div>
                     </div>
                   </div>
-                  <button onClick={onClose} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors interactive">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                  <button onClick={onClose} className={`rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors interactive flex-shrink-0 ${isMobile ? 'w-8 h-8' : 'w-10 h-10'}`}>
+                    <svg className={isMobile ? 'w-5 h-5' : 'w-6 h-6'} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
                   </button>
                 </div>
               </div>
 
-              {/* Static Category Filter Bar */}
-              <div className="p-8 border-b border-gray-700">
-                <div className="flex flex-wrap gap-4">
+              {/* Static Category Filter Bar - Responsive */}
+              <div className={`border-b border-gray-700 ${isMobile ? 'p-3' : 'p-8'}`}>
+                <div className={`flex flex-wrap ${isMobile ? 'gap-2' : 'gap-4'}`}>
                   {categories.map((category) => (
                     <button
                       key={category.id}
                       onClick={() => setActiveCategory(category.id)}
-                      className={`px-6 py-3 rounded-lg transition-all flex items-center gap-2 ${ activeCategory === category.id ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20' }`}
+                      className={`rounded-lg transition-all flex items-center justify-center gap-2 ${isMobile ? 'px-3 py-2 text-sm flex-1 min-w-[30%]' : 'px-6 py-3'} ${ activeCategory === category.id ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white' : 'bg-white/10 text-gray-300 hover:bg-white/20' }`}
                     >
-                      {category.name}
-                      <span className="text-xs bg-white/20 px-2 py-1 rounded-full">{category.count}</span>
+                      <span className={isMobile ? 'text-xs' : ''}>{category.name}</span>
+                      <span className={`bg-white/20 rounded-full ${isMobile ? 'text-[10px] px-1.5 py-0.5' : 'text-xs px-2 py-1'}`}>{category.count}</span>
                     </button>
                   ))}
                 </div>

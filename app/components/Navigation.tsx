@@ -19,6 +19,7 @@ export default function Navigation({ onOpenModal, onScrollToSection }: Navigatio
   const [isVisible, setIsVisible] = useState(true);
   const lastScrollY = useRef(0);
   const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
 const handleScroll = useCallback(() => {
     if (window.scrollY < 100) {
@@ -63,7 +64,7 @@ const handleScroll = useCallback(() => {
                 </h1>
               </div>
 
-              {/* Center: Navigation Links with Sliding Pill */}
+              {/* Center: Navigation Links with Sliding Pill - Desktop Only */}
               <div className="hidden md:flex items-center gap-2">
                 {navLinks.map((link) => (
                   <button
@@ -84,8 +85,9 @@ const handleScroll = useCallback(() => {
                 ))}
               </div>
 
-              {/* Right Side: CTA Button */}
-              <div className="flex items-center">
+              {/* Right Side: CTA Button + Hamburger (Mobile & Desktop) */}
+              <div className="flex items-center gap-3">
+                {/* Book Meeting Button - Always Visible */}
                 <CustomButton
                   variant="primary"
                   size="sm"
@@ -94,8 +96,57 @@ const handleScroll = useCallback(() => {
                 >
                   Book Meeting
                 </CustomButton>
+
+                {/* Mobile: Hamburger Menu Button */}
+                <button
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className="md:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 group"
+                  aria-label="Toggle menu"
+                >
+                  <motion.span
+                    animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
+                  />
+                  <motion.span
+                    animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
+                  />
+                  <motion.span
+                    animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
+                  />
+                </button>
               </div>
             </nav>
+
+            {/* Mobile Menu Dropdown - Only Portfolio, About, Contact */}
+            <AnimatePresence>
+              {isMobileMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.2 }}
+                  className="md:hidden mt-2 p-4 rounded-xl bg-black/95 backdrop-blur-lg border border-white/10 shadow-xl"
+                >
+                  {/* Mobile Navigation Links - Only 3 options */}
+                  <div className="flex flex-col space-y-2">
+                    {navLinks.map((link) => (
+                      <button
+                        key={link.id}
+                        onClick={() => {
+                          onOpenModal(link.modal);
+                          setIsMobileMenuOpen(false);
+                        }}
+                        className="w-full text-left px-4 py-3 text-base font-semibold text-gray-300 hover:text-white hover:bg-cyan-500/10 rounded-lg transition-all duration-200 border border-transparent hover:border-cyan-500/30"
+                      >
+                        {link.name}
+                      </button>
+                    ))}
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </motion.header>
       )}

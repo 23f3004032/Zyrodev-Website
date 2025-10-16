@@ -8,10 +8,23 @@ import { SVGLoader } from 'three-stdlib';
 import { motion } from 'framer-motion';
 import gsap from 'gsap';
 
+// Check if device supports WebGL
+const isWebGLSupported = () => {
+  if (typeof window === 'undefined') return true;
+  try {
+    const canvas = document.createElement('canvas');
+    return !!(window.WebGLRenderingContext && 
+      (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+  } catch (e) {
+    return false;
+  }
+};
+
 // Rotating logo component
 function RotatingLogo() {
   const meshRef = useRef<THREE.Group>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [logoScale, setLogoScale] = useState(0.01);
   const svgData = useLoader(SVGLoader, '/logo.svg');
 
   const logoGeometry = useMemo(() => {
@@ -36,6 +49,27 @@ function RotatingLogo() {
     logoGeometry.boundingBox?.getCenter(center);
     logoGeometry.center();
   }, [logoGeometry]);
+
+  // Adjust logo scale based on screen size
+  useEffect(() => {
+    const updateScale = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        // Mobile: nicely sized logo (not too big, not too small)
+        setLogoScale(0.0065);
+      } else if (width < 1024) {
+        // Tablet: medium logo
+        setLogoScale(0.008);
+      } else {
+        // Desktop: full size logo
+        setLogoScale(0.01);
+      }
+    };
+
+    updateScale();
+    window.addEventListener('resize', updateScale);
+    return () => window.removeEventListener('resize', updateScale);
+  }, []);
 
 
   useFrame((state) => {
@@ -65,10 +99,8 @@ function RotatingLogo() {
 
   return (
     <Float speed={2} rotationIntensity={0.3} floatIntensity={0.5}>
-      {/* IMPORTANT: Adjust scale and position here to fit your scene.
-        Your SVG might be very large or small, so you will need to tweak these values.
-      */}
-      <group ref={meshRef} scale={0.01} position={[0, 0, 0]}>
+      {/* Responsive logo scale - smaller on mobile, larger on desktop */}
+      <group ref={meshRef} scale={logoScale} position={[0, 0, 0]}>
         <mesh geometry={logoGeometry}>
           {/* Enhanced material with emissive glow for better visibility */}
           <meshStandardMaterial
@@ -121,8 +153,15 @@ function BackgroundGeometry() {
 export default function HeroSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+  const [webGLActive, setWebGLActive] = useState(true);
 
   useEffect(() => {
+    // Check WebGL support on mount
+    const supported = isWebGLSupported();
+    setWebGLSupported(supported);
+    setWebGLActive(supported);
+    
     const title = titleRef.current;
     const subtitle = subtitleRef.current;
 
@@ -143,26 +182,73 @@ export default function HeroSection() {
   }, []);
 
   return (
-    <section className="relative h-screen w-full overflow-hidden bg-gradient-to-b from-charcoal to-black">
-      {/* Three.js Background */}
-      <div className="absolute inset-0 z-0">
-        <Canvas
-          camera={{ position: [0, 0, 5], fov: 75 }}
-          dpr={[1, 2]}
-          performance={{ min: 0.5 }}
-        >
-          {/* Enhanced Lighting for better logo visibility */}
-          <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} intensity={1.5} />
-          <directionalLight position={[-10, -10, -5]} intensity={0.8} />
-          <pointLight position={[-10, -10, -5]} intensity={1} color="#06b6d4" />
-          <pointLight position={[10, 10, 5]} intensity={0.8} color="#0ea5e9" />
-          
-          {/* 3D Elements */}
-          <RotatingLogo />
-          <BackgroundGeometry />
-        </Canvas>
+    <section className="relative h-screen w-full overflow-hidden bg-gradient-to-br from-cyan-900/20 via-charcoal to-black">
+      {/* Always show fallback background as base layer */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-cyan-900/20 via-charcoal to-black">
+        <div className="absolute inset-0 opacity-30">
+          {/* CSS-based animated background as permanent fallback */}
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        </div>
       </div>
+
+      {/* Three.js Background - Overlay on top if WebGL is supported and active */}
+      {webGLSupported && webGLActive && (
+        <div className="absolute inset-0 z-[1]">
+          <Canvas
+            camera={{ 
+              position: [0, 0, typeof window !== 'undefined' && window.innerWidth < 640 ? 6 : 5], 
+              fov: 75 
+            }}
+            dpr={[1, 2]}
+            performance={{ min: 0.5 }}
+            gl={{ 
+              powerPreference: 'high-performance',
+              antialias: false,
+              stencil: false,
+              depth: false,
+              preserveDrawingBuffer: false,
+              failIfMajorPerformanceCaveat: false
+            }}
+            onCreated={({ gl, camera }) => {
+              // Reduce quality on mobile
+              gl.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+              // Adjust camera distance on mobile for better logo visibility
+              if (window.innerWidth < 640) {
+                camera.position.z = 6;
+              }
+              
+              // Handle WebGL context loss
+              const canvas = gl.domElement;
+              canvas.addEventListener('webglcontextlost', (event) => {
+                event.preventDefault();
+                console.warn('WebGL context lost, switching to fallback');
+                setWebGLActive(false);
+              });
+            }}
+            fallback={
+              // Fallback shown if Canvas fails to render
+              <div className="absolute inset-0 z-0 bg-gradient-to-br from-cyan-900/20 via-charcoal to-black">
+                <div className="absolute inset-0 opacity-30">
+                  <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-cyan-500/20 rounded-full blur-3xl animate-pulse"></div>
+                  <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                </div>
+              </div>
+            }
+          >
+            {/* Enhanced Lighting for better logo visibility */}
+            <ambientLight intensity={0.5} />
+            <directionalLight position={[10, 10, 5]} intensity={1.5} />
+            <directionalLight position={[-10, -10, -5]} intensity={0.8} />
+            <pointLight position={[-10, -10, -5]} intensity={1} color="#06b6d4" />
+            <pointLight position={[10, 10, 5]} intensity={0.8} color="#0ea5e9" />
+            
+            {/* 3D Elements */}
+            <RotatingLogo />
+            <BackgroundGeometry />
+          </Canvas>
+        </div>
+      )}
 
       {/* Foreground Content */}
       <div className="relative z-10 flex items-center justify-center h-full ">

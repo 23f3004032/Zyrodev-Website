@@ -11,6 +11,17 @@ export default function WebSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [hoveredProject, setHoveredProject] = useState<string | null>(null);
   const videoRefs = useRef<{ [key: string]: HTMLVideoElement | null }>({});
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -139,12 +150,16 @@ export default function WebSection() {
               {hoveredProject === project.id && (
                 <motion.div
                   initial={{ opacity: 0, y: 100, rotateZ: 0 }}
-                  animate={{ opacity: 1, y: 0, rotateZ: -6 }}
+                  animate={{ opacity: 1, y: 0, rotateZ: isMobile ? -3 : -6 }}
                   exit={{ opacity: 0, y: 100, rotateZ: 0 }}
                   transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="absolute right-4 md:right-12 bottom-4 md:bottom-8 z-20 pointer-events-none"
+                  className={`absolute z-20 pointer-events-none ${
+                    isMobile 
+                      ? 'left-4 right-4 bottom-4' 
+                      : 'right-12 bottom-8'
+                  }`}
                   style={{
-                    transformOrigin: "bottom right"
+                    transformOrigin: isMobile ? "bottom center" : "bottom right",
                   }}
                 >
                   {/* Video Container with Shadow */}
@@ -152,21 +167,21 @@ export default function WebSection() {
                     {/* Glow Shadow */}
                     <div className="absolute inset-0 bg-cyan-500/30 blur-2xl scale-105 rounded-2xl"></div>
                     
-                    {/* Video Frame - Large 16:9 Aspect Ratio like Cappen */}
-                    <div className="relative bg-gray-900 rounded-2xl overflow-hidden border-4 border-gray-800 shadow-2xl"
+                    {/* Video Frame - Device Specific Width */}
+                    <div className="relative bg-gray-900 rounded-lg md:rounded-2xl overflow-hidden border-2 md:border-4 border-gray-800 shadow-2xl"
                          style={{
-                           width: "clamp(400px, 55vw, 900px)",
+                           width: isMobile ? '100%' : 'clamp(500px, 50vw, 750px)',
                            aspectRatio: "16/9"
                          }}>
                       
                       {/* Browser Chrome */}
-                      <div className="bg-gray-800 px-4 py-2.5 flex items-center gap-2 border-b border-gray-700">
-                        <div className="flex gap-1.5">
-                          <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                          <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      <div className="bg-gray-800 px-2 md:px-4 py-1.5 md:py-2.5 flex items-center gap-1 md:gap-2 border-b border-gray-700">
+                        <div className="flex gap-1 md:gap-1.5">
+                          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                          <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <div className="flex-1 bg-gray-700 rounded px-3 py-1 text-xs text-gray-400 truncate">
+                        <div className="flex-1 bg-gray-700 rounded px-2 md:px-3 py-0.5 md:py-1 text-xs text-gray-400 truncate">
                           {project.title.toLowerCase().replace(/\s+/g, '')}.com
                         </div>
                       </div>

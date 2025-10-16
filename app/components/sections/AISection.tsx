@@ -13,6 +13,17 @@ export default function AISection() {
   const [showImage, setShowImage] = useState(false);
   const [currentImage, setCurrentImage] = useState<string>('');
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -157,12 +168,16 @@ export default function AISection() {
                 {showImage && hoveredProject === project.id && (
                   <motion.div
                     initial={{ opacity: 0, y: 100, rotateZ: 0 }}
-                    animate={{ opacity: 1, y: 0, rotateZ: -6 }}
+                    animate={{ opacity: 1, y: 0, rotateZ: isMobile ? -3 : -6 }}
                     exit={{ opacity: 0, y: 100, rotateZ: 0 }}
                     transition={{ duration: 0.5, ease: "easeOut" }}
-                    className="absolute right-4 md:right-12 bottom-4 md:bottom-8 z-20 pointer-events-none"
+                    className={`absolute z-20 pointer-events-none ${
+                      isMobile 
+                        ? 'left-4 right-4 bottom-4' 
+                        : 'right-12 bottom-8'
+                    }`}
                     style={{
-                      transformOrigin: "bottom right"
+                      transformOrigin: isMobile ? "bottom center" : "bottom right"
                     }}
                   >
                     {/* Image Container with Shadow */}
@@ -170,21 +185,21 @@ export default function AISection() {
                       {/* Glow Shadow */}
                       <div className="absolute inset-0 bg-purple-500/30 blur-2xl scale-105 rounded-2xl"></div>
                       
-                      {/* Image Frame - Large 16:9 like Website Section */}
-                      <div className="relative bg-black rounded-2xl overflow-hidden border-4 border-purple-500 shadow-2xl"
+                      {/* Image Frame - Device Specific Width */}
+                      <div className="relative bg-black rounded-lg md:rounded-2xl overflow-hidden border-2 md:border-4 border-purple-500 shadow-2xl"
                            style={{
-                             width: "clamp(400px, 55vw, 900px)",
+                             width: isMobile ? '100%' : 'clamp(500px, 50vw, 750px)',
                              aspectRatio: "16/9"
                            }}>
                         
                         {/* AI Badge Header */}
-                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-4 py-2.5 flex items-center gap-2 border-b border-purple-500">
-                          <div className="flex gap-1.5">
-                            <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                            <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                        <div className="bg-gradient-to-r from-purple-600 to-pink-600 px-2 md:px-4 py-1.5 md:py-2.5 flex items-center gap-1 md:gap-2 border-b border-purple-500">
+                          <div className="flex gap-1 md:gap-1.5">
+                            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-red-500"></div>
+                            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-yellow-500"></div>
+                            <div className="w-2 h-2 md:w-3 md:h-3 rounded-full bg-green-500"></div>
                           </div>
-                          <div className="flex-1 text-center text-white text-sm font-bold uppercase tracking-wide">
+                          <div className="flex-1 text-center text-white text-xs md:text-sm font-bold uppercase tracking-wide">
                             🤖 AI/ML Project
                           </div>
                         </div>
@@ -198,8 +213,8 @@ export default function AISection() {
                           />
                           
                           {/* Overlay with Project Info */}
-                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-4">
-                            <h4 className="text-xl font-bold text-white mb-1">{project.title}</h4>
+                          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/95 via-black/70 to-transparent p-2 md:p-4">
+                            <h4 className="text-base md:text-xl font-bold text-white mb-0.5 md:mb-1">{project.title}</h4>
                             <p className="text-purple-300 text-xs uppercase tracking-wide">{project.category}</p>
                           </div>
                         </div>
