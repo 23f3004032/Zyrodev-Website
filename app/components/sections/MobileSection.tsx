@@ -15,6 +15,13 @@ export default function MobileSection() {
   const [currentAppIndex, setCurrentAppIndex] = useState(0);
   const currentApp = mobileProjects[currentAppIndex];
 
+  // Debug log
+  useEffect(() => {
+    console.log('Mobile Projects Total:', mobileProjects.length);
+    console.log('Current Index:', currentAppIndex);
+    console.log('Current App:', currentApp?.title);
+  }, [currentAppIndex]);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 

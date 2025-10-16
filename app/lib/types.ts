@@ -7,7 +7,7 @@ export interface Project {
   imageUrl?: string; // For AI/ML projects using static images
   projectLink?: string;
   description: string;
-  technologies: string[];
+  technologies?: string[]; // Made optional as we're not displaying this
   year?: string;
   image?: string; // Made optional as we're using videos
   link?: string;
