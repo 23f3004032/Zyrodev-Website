@@ -282,15 +282,29 @@ export const teamMembers: TeamMember[] = [
     id: 'puneet',
     name: 'Puneet',
     role: 'Tech Lead & Co-Founder',
-    expertise: ['AI/ML', 'App Development', 'Project Management'],
+    expertise: ['AI/ML', 'App Development','Web Development', 'Project Management'],
     description: 'Consultant at Legalbook.io and Project Manager at IIT Madras with a core focus on AI/ML, App Development, and research in niche areas.',
   },
   {
     id: 'ankit',
     name: 'Ankit',
     role: 'Brand Marketing Specialist & Co-Founder',
-    expertise: ['Brand Building', 'Marketing Strategy', 'Client Relations'],
+    expertise: ['Front-End Development', 'Brand Building', 'Marketing Strategy', 'Client Relations'],
     description: 'A 2nd Year Student at IIT Madras who has worked with 10+ international clients from the UK, US, and Hungary. Expert in building and executing brand strategy.',
+  },
+  {
+    id: 'Devanshu',
+    name: 'Devanshu Bhatnagar',
+    role: 'Full-Stack Developer',
+    expertise: ['Web Development', 'App Development', 'Database Management', 'UI/UX Design'],
+    description: 'A 2nd year student at IIT Madras, Software developer, Intern at FedEx, Expert in building amazing softwares.',
+  },
+  {
+    id: 'Shruti',
+    name: 'Shruti Shrivastava',
+    role: 'Marketing & Communications Lead',
+    expertise: ['Marketing', 'Client Relations', 'Outreach', 'Sales Strategy'],
+    description: 'Experienced marketing professional with a knack for building strong client relationships and executing effective outreach strategies.',
   }
 ];
 

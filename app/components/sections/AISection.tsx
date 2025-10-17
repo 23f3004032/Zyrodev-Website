@@ -117,7 +117,7 @@ export default function AISection() {
           From machine learning models to intelligent automation, we bring AI to life.
         </motion.p>
 
-        {/* AI Projects List with Robot Shooter Effect */}
+        {/* AI Projects List */}
         <div className="max-w-6xl mx-auto space-y-4">
           {aiProjects.map((project: Project, index: number) => (
             <motion.div
@@ -133,20 +133,8 @@ export default function AISection() {
               {/* Project Card */}
               <div className="group relative bg-gradient-to-r from-purple-900/30 to-pink-900/30 backdrop-blur-sm border border-purple-500/20 rounded-xl p-6 md:p-8 hover:border-purple-500/50 transition-all duration-500 cursor-pointer overflow-visible">
                 
-                {/* Robot on Left/Right (alternating) */}
-                <div className={`absolute ${index % 2 === 0 ? 'left-4 md:left-8' : 'right-4 md:right-8'} top-1/2 -translate-y-1/2 z-10`}>
-                  {/* Robot Emoji */}
-                  <motion.div
-                    animate={hoveredProject === project.id ? { scale: [1, 1.2, 1] } : {}}
-                    transition={{ duration: 0.3 }}
-                    className="text-6xl"
-                  >
-                    🤖
-                  </motion.div>
-                </div>
-
                 {/* Content */}
-                <div className="relative z-10 pl-20 pr-20">
+                <div className="relative z-10">
                   <div className="flex items-center justify-between">
                     <div className="flex-1">
                       <h3 className="text-2xl md:text-4xl font-bold text-white mb-2 group-hover:text-purple-400 transition-colors duration-300">
@@ -157,6 +145,13 @@ export default function AISection() {
                       </p>
                     </div>
                   </div>
+                </div>
+
+                {/* Hover Indicator Arrow */}
+                <div className="absolute right-8 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg className="w-8 h-8 text-purple-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
                 </div>
 
                 {/* Background Glow Effect */}
