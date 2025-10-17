@@ -190,7 +190,7 @@ export default function WebSection() {
                       <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
                         <video
                           ref={(el) => { videoRefs.current[project.id] = el; }}
-                          src={project.videoUrl}
+                          src={project.videoUrl || ''}
                           className="w-full h-full object-cover"
                           muted
                           playsInline

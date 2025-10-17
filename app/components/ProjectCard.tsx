@@ -67,7 +67,7 @@ export default function ProjectCard({ project, onClick }: ProjectCardProps) {
             (e.target as HTMLVideoElement).style.display = 'none';
           }}
         >
-          <source src={project.videoUrl} type="video/mp4" />
+          <source src={project.videoUrl || ''} type="video/mp4" />
         </video>
         
         {/* Fallback gradient - always present as background */}

@@ -82,7 +82,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
               >
-                <PhoneMockup videoUrl={project.videoUrl} />
+                <PhoneMockup videoUrl={project.videoUrl || ''} />
               </motion.div>
 
               {/* Project details - Right side */}
@@ -176,7 +176,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                       (e.target as HTMLVideoElement).parentNode?.replaceChild(fallback, e.target as HTMLVideoElement);
                     }}
                   >
-                    <source src={project.videoUrl} type="video/mp4" />
+                    <source src={project.videoUrl || ''} type="video/mp4" />
                   </video>
                 </div>
               </motion.div>
