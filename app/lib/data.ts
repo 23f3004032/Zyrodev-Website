@@ -279,6 +279,13 @@ export const aiProjects: Project[] = [
 // Team Members
 export const teamMembers: TeamMember[] = [
   {
+    id: 'Neelesh',
+    name: 'Prof Neelesh S Upadhye',
+    role: 'Advisor',
+    expertise: ['Mathematics', 'Research', 'Advisory'],
+    description:'Dr. Neelesh Shankar Upadhye is a Professor in the Department of Mathematics at the Indian Institute of Technology Madras.Dr. Upadhye has contributed to over 34 journal articles and 4 conference proceedings between 2007 and 2024, accumulating 333 citations with an h-index of 12.'
+  }, 
+  {
     id: 'puneet',
     name: 'Puneet',
     role: 'Tech Lead & Co-Founder',
