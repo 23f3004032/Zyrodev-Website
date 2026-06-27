@@ -1,150 +1,141 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import Lenis from 'lenis';
-import { teamMembers } from '../../lib/data';
 
 interface AboutModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  initials: string;
+  subline: string;
+  linkedinUrl?: string;
+}
+
 export default function AboutModal({ isOpen, onClose }: AboutModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const scrollContainerRef = useRef<HTMLDivElement>(null); // Ref for the scrollable part
 
-  useEffect(() => {
-    // This effect creates and destroys a Lenis instance for the modal's content
-    if (isOpen && scrollContainerRef.current) {
-      const modalLenis = new Lenis({
-        wrapper: scrollContainerRef.current, // Target the scrollable div
-        smoothWheel: true,
-        duration: 1.2,
-      });
-
-      const raf = (time: number) => {
-        modalLenis.raf(time);
-        requestAnimationFrame(raf);
-      };
-      requestAnimationFrame(raf);
-      
-      return () => {
-        modalLenis.destroy();
-      };
+  const team: TeamMember[] = [
+    {
+      id: 'puneet',
+      name: 'Puneet',
+      role: 'Co-Founder & Consultant',
+      initials: 'P',
+      subline: 'Technical architecture & product consulting.',
+      linkedinUrl: 'https://www.linkedin.com/in/brpuneet898/'
+    },
+    {
+      id: 'ankit',
+      name: 'Ankit',
+      role: 'Co-Founder & CEO',
+      initials: 'A',
+      subline: 'Brand strategy, Client relations & Full stack Engineer.',
+      linkedinUrl: 'https://www.linkedin.com/in/ankit-singh-117925249/'
+    },
+    {
+      id: 'devanshu',
+      name: 'Devanshu Bhatnagar',
+      role: 'Co-Founder & CTO',
+      initials: 'DB',
+      subline: 'Full-stack systems architecture & engineering.',
+      linkedinUrl: 'https://www.linkedin.com/in/devanshu-bhatnagar/'
+    },
+    {
+      id: 'shruti',
+      name: 'Shruti Shrivastava',
+      role: 'Marketing Advisor',
+      initials: 'SS',
+      subline: 'Strategic marketing communications & outreach.'
     }
-  }, [isOpen]);
+  ];
 
   if (!isOpen) return null;
 
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/80 backdrop-blur-xl z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
+        {/* Backdrop Close Capture */}
+        <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
+
         <motion.div
           ref={modalRef}
-          // The main modal box is a flex column with a max height and hidden overflow
-          className="bg-charcoal/95 backdrop-blur-md rounded-2xl max-w-4xl w-full max-h-[90vh] shadow-2xl border border-cyan-500/20 flex flex-col overflow-hidden"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0.8, opacity: 0 }}
-          transition={{ duration: 0.3 }}
+          className="relative w-full max-w-2xl bg-slate-950 border border-slate-800 rounded-xl shadow-[0_0_40px_rgba(0,0,0,0.8)] p-6 md:p-8 flex flex-col h-auto max-h-[90vh] overflow-y-auto z-10"
+          initial={{ scale: 0.95, opacity: 0, y: 15 }}
+          animate={{ scale: 1, opacity: 1, y: 0 }}
+          exit={{ scale: 0.95, opacity: 0, y: 15 }}
+          transition={{ duration: 0.25, ease: 'easeOut' }}
         >
-          {/* ## PART 1: THE STATIC HEADER ## */}
-          {/* This part does NOT scroll */}
-          <div className="p-8 border-b border-gray-700 bg-charcoal/95 z-10">
-            <div className="flex justify-between items-center">
-              <div>
-                <h2 className="text-4xl font-bold text-white mb-2">About Zyrodev</h2>
-                <p className="text-gray-400 text-lg">Engineering Digital Realities</p>
-              </div>
-              <button
-                onClick={onClose}
-                className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white hover:bg-white/20 transition-colors interactive"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
-            </div>
-          </div>
+          {/* Top accent glow line */}
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent pointer-events-none" />
 
-          {/* ## PART 2: THE SCROLLABLE CONTENT AREA ## */}
-          {/* This div takes the remaining space and handles all scrolling */}
-          <div
-            ref={scrollContainerRef}
-            className="overflow-y-auto"
+          {/* Close button */}
+          <button 
+            onClick={onClose} 
+            className="absolute right-4 top-4 text-slate-500 hover:text-cyan-400 font-mono text-sm transition-colors focus:outline-none select-none z-20"
           >
-            {/* All your scrollable content goes inside this div */}
-            <div className="p-8 border-b border-gray-700 bg-gradient-to-r from-cyan-900/20 to-blue-900/20">
-              <h3 className="text-2xl font-bold text-white mb-6">Our Mission</h3>
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">
-                At Zyrodev, we believe in transforming ideas into powerful digital experiences. 
-                We specialize in creating innovative solutions that bridge the gap between technology and human needs.
-              </p>
-              {/* ... Key Points content ... */}
-            </div>
+            ✕
+          </button>
 
-            <div className="p-8">
-              <h3 className="text-2xl font-bold text-white mb-8 text-center">Meet Our Team</h3>
-              <div className="grid md:grid-cols-2 gap-8">
-                {teamMembers.map((member, index) => (
-                  <motion.div
-                    key={member.id}
-                    className="glass rounded-xl p-6 text-center"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: index * 0.2 }}
-                  >
-                    <div className="w-24 h-24 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                      <span className="text-white text-2xl font-bold">
-                        {member.name.split(' ').map(n => n[0]).join('')}
-                      </span>
-                    </div>
-                    <h4 className="text-xl font-bold text-white mb-1">{member.name}</h4>
-                    <p className="text-cyan-400 text-sm font-medium uppercase tracking-wide mb-4">
-                      {member.role}
-                    </p>
-                    <p className="text-gray-300 text-sm leading-relaxed mb-4">
-                      {member.description}
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-2">
-                      {member.expertise.map((skill, skillIndex) => (
-                        <span key={skillIndex} className="px-3 py-1 bg-white/10 text-gray-300 text-xs rounded-full backdrop-blur-sm">
-                          {skill}
-                        </span>
-                      ))}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-
-            <div className="p-8 border-t border-gray-700 bg-gradient-to-r from-gray-900/50 to-slate-900/50">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-                <div>
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">50+</div>
-                  <div className="text-gray-400 text-sm">Projects Completed</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">3+</div>
-                  <div className="text-gray-400 text-sm">Years Experience</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">100%</div>
-                  <div className="text-gray-400 text-sm">Client Satisfaction</div>
-                </div>
-                <div>
-                  <div className="text-3xl font-bold text-cyan-400 mb-2">24/7</div>
-                  <div className="text-gray-400 text-sm">Support Available</div>
-                </div>
-              </div>
-            </div>
+          {/* Header block */}
+          <div className="text-left select-none">
+            <h2 className="text-3xl font-extrabold tracking-tight text-white uppercase">
+              Meet the Team
+            </h2>
+            <p className="text-slate-400 font-mono text-xs md:text-sm mt-2">
+              &gt; The leadership driving Zyrodev
+            </p>
           </div>
+
+          {/* Leadership cards grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+            {team.map((member) => (
+              <div 
+                key={member.id}
+                className="bg-slate-900/40 border border-slate-800 rounded-lg p-4 flex flex-col justify-between hover:border-slate-700 hover:shadow-[0_0_15px_rgba(6,182,212,0.05)] transition-all duration-300 group"
+              >
+                {/* Card Body */}
+                <div className="flex items-start gap-3 text-left">
+                  {/* Avatar Initials Circle */}
+                  <div className="w-11 h-11 rounded-full bg-gradient-to-br from-cyan-900/50 to-slate-900 flex items-center justify-center text-white text-xs font-extrabold flex-shrink-0 select-none border border-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
+                    {member.initials}
+                  </div>
+                  
+                  {/* Member Details */}
+                  <div className="flex-grow min-w-0">
+                    <h4 className="text-sm font-extrabold text-white tracking-wide">{member.name}</h4>
+                    <p className="text-cyan-400 font-mono text-[9px] uppercase tracking-wider mt-0.5">{member.role}</p>
+                    <p className="text-slate-400 text-xs mt-2 leading-relaxed font-sans font-medium">{member.subline}</p>
+                  </div>
+                </div>
+
+                {/* Footer Action - Conditionally rendered based on URL presence */}
+                {member.linkedinUrl && (
+                  <div className="mt-4 pt-3 border-t border-slate-900/40 flex justify-start">
+                    <a
+                      href={member.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-4 py-1.5 bg-transparent border border-cyan-500/20 text-cyan-400 text-[10px] rounded-full font-mono hover:bg-cyan-500 hover:text-black hover:border-cyan-500 hover:shadow-[0_0_10px_rgba(6,182,212,0.3)] transition-all duration-300 select-none interactive"
+                    >
+                      View Profile
+                    </a>
+                  </div>
+                )}
+
+              </div>
+            ))}
+          </div>
+
         </motion.div>
       </motion.div>
     </AnimatePresence>
