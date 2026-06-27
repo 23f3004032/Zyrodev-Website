@@ -51,21 +51,23 @@ const handleScroll = useCallback(() => {
               onMouseLeave={() => setHoveredLink(null)} // Reset hover when mouse leaves the nav bar
               className="relative flex items-center justify-between p-2 rounded-xl bg-black/20 backdrop-blur-lg border border-white/10 shadow-lg"
             >
-              {/* Left Side: Logo */}
-              <div
-                onClick={() => onScrollToSection('hero')}
-                className="flex items-center gap-3 cursor-pointer group interactive"
-              >
-                <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
-                   <img src="/logo.svg" alt="Zyrodev Logo" className="w-full h-full" />
+              {/* Left Section: Logo & Text */}
+              <div className="flex flex-1 items-center justify-start">
+                <div
+                  onClick={() => onScrollToSection('hero')}
+                  className="flex items-center gap-3 cursor-pointer group interactive"
+                >
+                  <div className="w-8 h-8 flex items-center justify-center transition-transform group-hover:scale-110">
+                     <img src="/logo.svg" alt="Zyrodev Logo" className="w-full h-full" />
+                  </div>
+                  <h1 className="hidden md:block text-xl font-bold tracking-widest text-white ml-3 font-sans select-none">
+                    ZYRODEV
+                  </h1>
                 </div>
-                <h1 className="text-xl font-bold tracking-wide text-white group-hover:text-cyan-400 transition-colors">
-                  ZYRODEV
-                </h1>
               </div>
 
-              {/* Center: Navigation Links with Sliding Pill - Desktop Only */}
-              <div className="hidden md:flex items-center gap-2">
+              {/* Center Section: Navigation Links with Sliding Pill */}
+              <div className="hidden md:flex flex-1 items-center justify-center gap-8">
                 {navLinks.map((link) => (
                   <button
                     key={link.id}
@@ -85,35 +87,32 @@ const handleScroll = useCallback(() => {
                 ))}
               </div>
 
-              {/* Right Side: CTA Button + Hamburger (Mobile & Desktop) */}
-              <div className="flex items-center gap-3">
+              {/* Right Section: CTA / Hamburger */}
+              <div className="flex flex-1 items-center justify-end gap-3">
                 {/* Book Meeting Button - Always Visible */}
-                <CustomButton
-                  variant="primary"
-                  size="sm"
+                <button
                   onClick={() => onOpenModal('meeting')}
-                  className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 transition-all duration-300 shadow-lg hover:shadow-cyan-500/25"
+                  className="px-5 py-2 md:px-6 md:py-2.5 rounded-full border border-cyan-500 text-white font-mono text-sm tracking-wide whitespace-nowrap hover:bg-cyan-500 hover:text-black hover:shadow-[0_0_15px_rgba(6,182,212,0.6)] transition-all duration-300 select-none"
                 >
-                  Book Meeting
-                </CustomButton>
+                  <span className="md:hidden">Connect</span>
+                  <span className="hidden md:inline">Book Meeting</span>
+                </button>
 
                 {/* Mobile: Hamburger Menu Button */}
                 <button
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                  className="md:hidden flex flex-col items-center justify-center w-10 h-10 space-y-1.5 group"
+                  className="flex flex-col justify-center items-end gap-1.5 w-8 h-8 md:hidden text-cyan-400 focus:outline-none"
                   aria-label="Toggle menu"
                 >
-                  <motion.span
-                    animate={isMobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
+                  <span 
+                    className={`h-[2px] bg-cyan-400 rounded transition-all duration-300 ${
+                      isMobileMenuOpen ? 'w-6 rotate-45 translate-y-[5px]' : 'w-6'
+                    }`}
                   />
-                  <motion.span
-                    animate={isMobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
-                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
-                  />
-                  <motion.span
-                    animate={isMobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                    className="w-6 h-0.5 bg-white group-hover:bg-cyan-400 transition-colors"
+                  <span 
+                    className={`h-[2px] bg-cyan-400 rounded transition-all duration-300 ${
+                      isMobileMenuOpen ? 'w-6 -rotate-45 -translate-y-[3px]' : 'w-4'
+                    }`}
                   />
                 </button>
               </div>
