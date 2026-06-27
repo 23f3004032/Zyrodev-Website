@@ -152,7 +152,7 @@ export default function OurProducts() {
                   <img
                     src="/logo.svg"
                     alt="Zyrodev Logo"
-                    className="w-12 h-12 md:w-16 md:h-16 object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
+                    className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
                   />
                 </div>
 
@@ -170,7 +170,7 @@ export default function OurProducts() {
             <div className="w-full flex flex-col items-center gap-2 mt-2">
               
               {/* Scaled-down Rotating Disk */}
-              <div className="w-24 h-24 relative flex items-center justify-center flex-none select-none my-1">
+              <div className="w-48 h-48 relative flex items-center justify-center flex-none select-none my-1 flex-shrink-0">
                 
                 {/* Rotating Ring SVG */}
                 <svg
@@ -202,11 +202,11 @@ export default function OurProducts() {
                 </svg>
 
                 {/* Central Logo */}
-                <div className="relative z-10 w-12 h-12 rounded-full bg-black/60 border border-cyan-500/20 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.15)]">
+                <div className="relative z-10 w-24 h-24 rounded-full bg-black/60 border border-cyan-500/20 backdrop-blur-md flex items-center justify-center shadow-[0_0_20px_rgba(6,182,212,0.15)] flex-shrink-0">
                   <img
                     src="/logo.svg"
                     alt="Zyrodev Logo"
-                    className="w-4 h-4 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] animate-pulse"
+                    className="w-16 h-16 object-contain drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] animate-pulse"
                   />
                 </div>
 
