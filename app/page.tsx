@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useLenis } from './hooks/useLenis';
 import Navigation from './components/Navigation';
 import HeroSection from './components/HeroSection';
+import StatsScroll from './components/StatsScroll';
 import MobileSection from './components/sections/MobileSection';
 import WebSection from './components/sections/WebSection';
 import AISection from './components/sections/AISection';
@@ -55,6 +56,11 @@ export default function HomePage() {
         {/* Hero Section */}
         <section id="hero">
           <HeroSection />
+        </section>
+        
+        {/* Stats Scroll Section */}
+        <section id="stats">
+          <StatsScroll />
         </section>
         
         {/* Mobile App Section */}
