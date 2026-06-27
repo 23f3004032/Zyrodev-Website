@@ -131,7 +131,7 @@ export default function StatsScroll() {
                 18
               </div>
               <div className="text-7xl md:text-9xl font-black text-cyan-400 flex items-center justify-center h-32 md:h-48 w-full">
-                05
+                04
               </div>
             </div>
           </div>

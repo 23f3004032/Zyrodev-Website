@@ -8,6 +8,7 @@ import StatsScroll from './components/StatsScroll';
 import MobileSection from './components/sections/MobileSection';
 import WebSection from './components/sections/WebSection';
 import AISection from './components/sections/AISection';
+import OurProducts from './components/sections/OurProducts';
 import ContactModal from './components/modals/ContactModal';
 import AboutModal from './components/modals/AboutModal';
 import BookMeetingModal from './components/modals/BookMeetingModal';
@@ -76,6 +77,11 @@ export default function HomePage() {
         {/* AI/ML Section */}
         <section id="ai">
           <AISection />
+        </section>
+        
+        {/* Our Products Section */}
+        <section id="products">
+          <OurProducts />
         </section>
         
         {/* Footer */}
