@@ -3,78 +3,127 @@ import { Project, TeamMember } from './types';
 // Mobile App Projects
 export const mobileProjects: Project[] = [
   {
-    id: 'mobile-1',
-    title: 'WalkWins',
-    category: 'Health & Fitness',
-    type: 'mobile',
-    videoUrl: '/videos/app/walkwins-app.mp4',
-    image: '/images/app/walkwins/ww1.jpg',
-    description: 'Track your daily steps and achieve your fitness goals with our intelligent step counting application. Get real-time insights, set personalized targets, and stay motivated with achievement badges and progress analytics.',
-    year: '2024',
-    testimonial: "Working with Ankit and his team was an exceptional experience. Their communication was consistently clear and professional, with regular updates throughout the development cycle. The team's technical expertise and attention to detail resulted in a polished, user-friendly app that perfectly matched our vision.",
-    link: 'https://apps.apple.com/in/app/walk-wins/id6463612643'
+    id: "app-01",
+    title: "eGrocer",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/eGrocer.mp4",
+    link: "https://play.google.com/store/apps/details?id=com.wrteam.egrocer",
+    description: "A highly scalable, hyper-local e-commerce application equipped with real-time location-based inventory tracking, automated slot management, and secure gateway routing.",
+    techStack: "Flutter | Node.js | Firebase | Google Maps API",
+    testimonial: "The Zyrodev team engineered an optimized mobile experience capable of rendering dynamic, multi-vendor catalogs with zero latency. The architecture handles end-to-end checkout cycles and complex cart logic seamlessly."
   },
   {
-    id: 'mobile-2',
-    title: 'Breathe Yoga',
-    category: 'Wellness & Meditation',
-    type: 'mobile',
-    videoUrl: '/videos/app/breatheyoga.mp4',
-    image: '/images/app/Breatheyoga/breatheyoga1.jpg',
-    description: 'Discover inner peace with guided meditation sessions and professional yoga classes. Experience personalized wellness programs, breathing exercises, and mindfulness techniques designed for all skill levels.',
-    year: '2024',
-    testimonial: "Puneet and his development team delivered outstanding results. Their technical expertise was evident in every detail, creating a fast and reliable application that beautifully translates complex features into an intuitive user experience. The team's collaborative approach and responsive communication made the entire process smooth and efficient.",
-    link: 'https://play.google.com/store/apps/details?id=breathe.yoga&hl=en_IN'
+    id: "app-02",
+    title: "Fix4ever",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/fix4ever.mp4",
+    link: "https://play.google.com/store/apps/details?id=com.fix4ever&pcampaignid=web_share",
+    description: "A seamless, real-time matchmaking ecosystem connecting service professionals with localized consumer demands, built with offline-first capabilities.",
+    techStack: "React Native | Express.js | MongoDB | Socket.io",
+    testimonial: "Zyrodev implemented low-latency WebSockets for instantaneous real-time job bidding and dispatch tracking. The interface ensures a frictionless transactional workflow for both providers and end-users."
   },
   {
-    id: 'mobile-3',
-    title: 'E-Grocer',
-    category: 'E-commerce & Shopping',
-    type: 'mobile',
-    videoUrl: '/videos/app/eGrocer.mp4',
-    image: '/images/app/eGrocer/eGrocer1.jpg',
-    description: 'Your one-stop solution for fresh groceries delivered to your doorstep. Browse thousands of products, enjoy exclusive deals, and experience seamless checkout with real-time order tracking and scheduled deliveries.',
-    year: '2024',
-    testimonial: "The team built a robust, scalable solution that handles our complex inventory seamlessly. Their professional approach and strong communication throughout the project ensured every requirement was met with precision. The final product has significantly boosted our online sales and customer satisfaction.",
-    link: 'https://play.google.com/store/apps/details?id=com.wrteam.egrocer'
+    id: "app-03",
+    title: "Funmate",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/funmate.mp4",
+    description: "A modern matchmaking and hyper-local event mapping application designed to handle intensive spatial queries and high concurrency profile discoveries.",
+    techStack: "Flutter | Firebase Cloud Firestore | GeoFlutterFire | Node.js",
+    testimonial: "The team built an optimized geospatial query engine that smoothly handles proximity matching and event synchronization on mobile, wrapped in a polished, highly interactive user interface."
   },
   {
-    id: 'mobile-4',
-    title: 'i invest',
-    category: 'Finance & Investment',
-    type: 'mobile',
-    videoUrl: '/videos/app/invest.mp4',
-    image: '/images/app/invest/invest1.jpg',
-    description: 'Smart investment platform for tracking portfolios, analyzing market trends, and making informed financial decisions. Real-time stock updates, personalized investment recommendations, and comprehensive financial planning tools.',
-    year: '2024',
-    testimonial: "The development team delivered an intuitive and secure investment platform that handles complex financial data flawlessly. Their understanding of our requirements and consistent communication ensured a smooth development process. The app's clean interface and real-time capabilities have been highly praised by our users.",
-    link: 'https://apps.apple.com/us/app/i-invest/id1381126486'
+    id: "app-04",
+    title: "Square Yards",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/squareyards.mp4",
+    link: "https://play.google.com/store/apps/details?id=com.sq.yrd.squareyards&pcampaignid=web_share",
+    description: "A comprehensive real estate application integrating advanced data analytics for property valuations, financial calculators, and multi-tier filtering engines.",
+    techStack: "Native Android | Kotlin | RESTful APIs | Jetpack Compose",
+    testimonial: "Zyrodev streamlined complex database queries to let users look up extensive real estate portfolios instantly. The application delivers robust cross-platform synchronization and enterprise-grade security filters."
   },
   {
-    id: 'mobile-5',
-    title: 'St Joseph Medical Center',
-    category: 'Education & Healthcare',
-    type: 'mobile',
-    videoUrl: '/videos/app/st-joseph-medical-college.mp4',
-    image: '/images/app/stjosephmedicalcollege/sjmc1.jpg',
-    description: 'Comprehensive educational platform for medical students and faculty. Access course materials, attend virtual lectures, track academic progress, and stay connected with the medical college community.',
-    year: '2024',
-    testimonial: "This educational platform has transformed how our institution operates. The team's attention to detail and responsive communication throughout development ensured all our specific requirements were met. The seamless integration of video conferencing and user-friendly interface has significantly enhanced our teaching and learning experience.",
-    link: 'https://play.google.com/store/apps/details?id=com.app.SJMC&hl=en'
+    id: "app-05",
+    title: "Tracks by Truckloom",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/tracks-by-truckroom.mp4",
+    link: "https://apps.apple.com/in/app/tracks-by-truckoom/id1608130603",
+    description: "A robust iOS application built for telematics integration, optimized background GPS tracking, and route efficiency orchestration for fleet supply chains.",
+    techStack: "Swift | CoreLocation | AWS IoT Core | WebSockets",
+    testimonial: "The team engineered an aggressive background data-sync algorithm that minimizes battery drainage while providing sub-second vehicle telemetry updates directly to a centralized B2B dashboard."
   },
   {
-    id: 'mobile-6',
-    title: 'Tracks by Truckroom',
-    category: 'Infrastructure & Logistics',
-    type: 'mobile',
-    videoUrl: '/videos/app/tracks-by-truckroom.mp4',
-    image: '/images/app/Tracksbytruckroom/track1.jpg',
-    description: 'Comprehensive logistics solution for packers and movers, streamlining booking management, real-time tracking, and customer communication. Efficient tools for managing moving services with integrated scheduling and route optimization.',
-    year: '2024',
-    testimonial: "The team developed a comprehensive solution that streamlined our entire logistics operation. Their collaborative approach and regular communication ensured the platform met all our business needs. The real-time tracking and booking management features have significantly improved our operational efficiency and customer satisfaction.",
-    link: 'https://apps.apple.com/in/app/tracks-by-truckoom/id1608130603'
+    id: "app-06",
+    title: "Winners Academy School",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/winneracademy.mp4",
+    link: "https://play.google.com/store/apps/details?id=app.winnersacademyschool&pcampaignid=web_share",
+    description: "An enterprise-grade institutional app managing real-time attendance, grading systems, digital homework submittals, and integrated parent-teacher communication channels.",
+    techStack: "Flutter | PHP Laravel Backend | MySQL | Push Notifications",
+    testimonial: "Zyrodev built a high-efficiency messaging layer to handle sudden spikes in active concurrent users during school hours, ensuring push notifications and reports drop instantly with zero packet loss."
+  },
+  {
+    id: "app-07",
+    title: "Walkwins",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/walkwins-app.mp4",
+    description: "An engaging fitness application that captures hardware sensor data to securely log steps, compute caloric burn, and award dynamic milestones.",
+    techStack: "React Native | Android Sensor APIs | HealthKit Integration",
+    testimonial: "Zyrodev built robust anti-tampering logic around physical step sensors to prevent falsified inputs, ensuring high data accuracy while maintaining a smooth and responsive interface on low-end mobile devices."
+  },
+  {
+    id: "app-08",
+    title: "St. Joseph Medical Center",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/st-joseph-medical-college.mp4",
+    link: "https://play.google.com/store/apps/details?id=com.app.SJMC&hl=en",
+    description: "A high-security, HIPAA-compliant patient dashboard for tracking medical records, booking clinical appointments, and managing real-time video consultations.",
+    techStack: "Java | WebRTC | Encrypted SQLite | Secure WebSockets",
+    testimonial: "The team implemented end-to-end encryption layers for medical record distribution and deployed high-performance WebRTC streams to ensure video consults work flawlessly even in low-bandwidth scenarios."
+  },
+  {
+    id: "app-09",
+    title: "Breathe Yoga",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/breatheyoga.mp4",
+    link: "https://play.google.com/store/apps/details?id=breathe.yoga&hl=en_IN",
+    description: "A highly immersive audio-visual wellness tracking ecosystem utilizing device APIs to monitor session timelines, breathing rhythms, and personal growth metrics.",
+    techStack: "Flutter | AVFoundation | LocalStorage | RevenueCat",
+    testimonial: "Zyrodev prioritized premium, fluid UI rendering and multi-layer asset loading to ensure a calm, interruption-free user session, resulting in high retention and perfect cross-platform media rendering."
+  },
+  {
+    id: "app-10",
+    title: "DealCheck",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/dealcheck.mp4",
+    link: "https://play.google.com/store/apps/details?id=com.fortnofffinancial.dealcheck_rentals&pcampaignid=web_share",
+    description: "A complex financial calculation platform that allows real estate investors to run rapid cash flow analyses, Cap Rate estimations, and multi-year ROI projections.",
+    techStack: "React Native | Redux Toolkit | Node.js Microservices",
+    testimonial: "Our engineers packed heavy mathematical processing formulas into optimized front-end computational modules. The app executes multi-variable data projections instantaneously on the client side."
+  },
+  {
+    id: "app-11",
+    title: "iInvest",
+    category: "Mobile Apps",
+    type: "mobile",
+    videoUrl: "/videos/app/invest.mp4",
+    link: "https://apps.apple.com/us/app/i-invest/id1381126486",
+    description: "A premium financial platform for compiling, visualizing, and analyzing diverse multi-asset investment portfolios with live historical pricing APIs.",
+    techStack: "Swift iOS Native | CoreData | Chart.js/Native Canvas | Financial APIs",
+    testimonial: "The team designed custom high-performance data pipelines to map compound annual growth rates dynamically. The visual layer renders complex financial trajectories fluidly at a locked 60 frames per second."
   }
 ];
+
+export const mobileAppProjects = mobileProjects;
 
 // Web Projects
 export const webProjects: Project[] = [

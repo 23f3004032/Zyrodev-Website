@@ -207,20 +207,24 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                             {selectedProject.category}
                           </span>
                         </div>
-                        {selectedProject.link && (
-                          <div>
-                            <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Project Link</h3>
+                        <div>
+                          <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Project Link</h3>
+                          {selectedProject.link ? (
                             <a 
                               href={selectedProject.link} 
                               target="_blank" 
-                              rel="noopener noreferrer" 
+                              rel="noreferrer" 
                               className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500 text-cyan-400 text-xs rounded-full font-mono hover:bg-cyan-500 hover:text-black transition-all duration-300"
                             >
                               Visit Live Platform
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
-                          </div>
-                        )}
+                          ) : (
+                            <span className="inline-block mt-1 text-slate-500 font-mono text-xs italic">
+                              Proprietary / Internal Platform Build
+                            </span>
+                          )}
+                        </div>
                         {selectedProject.testimonial && (
                           <div>
                             <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Operational Scope</h3>
@@ -276,20 +280,24 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                             {selectedProject.category}
                           </span>
                         </div>
-                        {selectedProject.link && (
-                          <div>
-                            <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Project Link</h3>
+                        <div>
+                          <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Project Link</h3>
+                          {selectedProject.link ? (
                             <a 
                               href={selectedProject.link} 
                               target="_blank" 
-                              rel="noopener noreferrer" 
+                              rel="noreferrer" 
                               className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500 text-cyan-400 text-xs rounded-full font-mono hover:bg-cyan-500 hover:text-black transition-all duration-300"
                             >
                               Visit Live Platform
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
-                          </div>
-                        )}
+                          ) : (
+                            <span className="inline-block mt-1 text-slate-500 font-mono text-xs italic">
+                              Proprietary / Internal Platform Build
+                            </span>
+                          )}
+                        </div>
                         {selectedProject.testimonial && (
                           <div>
                             <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider mb-2">Operational Scope</h3>

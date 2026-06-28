@@ -213,7 +213,7 @@ export default function MobileSection() {
                   transition={{ delay: 0.5 }}
                   className="flex flex-wrap gap-3"
                 >
-                  {currentApp.technologies?.map((tech: string, index: number) => (
+                  {(currentApp.techStack ? currentApp.techStack.split(' | ') : []).map((tech: string, index: number) => (
                     <span
                       key={index}
                       className="px-4 py-2 bg-white/10 text-gray-200 text-sm font-medium rounded-full backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors"
