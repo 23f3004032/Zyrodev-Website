@@ -105,20 +105,7 @@ video {
   scrollbar-width: none;
 }
 
-/* Interactive elements cursor styles */
-button, 
-a, 
-[role="button"],
-.interactive {
-  cursor: none;
-}
 
-button:hover,
-a:hover,
-[role="button"]:hover,
-.interactive:hover {
-  cursor: none;
-}
 
 /* Animation utilities */
 .animate-fade-in {

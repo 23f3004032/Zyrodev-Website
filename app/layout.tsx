@@ -4,7 +4,6 @@
 import './globals.css';
 import { useEffect, useState, ReactNode } from 'react';
 import Lenis from 'lenis';
-import CustomCursor from './components/CustomCursor';
 import { LenisContext } from './hooks/useLenis';
 
 export default function RootLayout({ children }: { children: ReactNode }) {
@@ -45,7 +44,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <link rel="icon" href="/favicon.ico" />
         </head>
         <body className="bg-charcoal text-white overflow-x-hidden">
-          <CustomCursor />
           <main className="relative">{children}</main>
         </body>
       </html>
