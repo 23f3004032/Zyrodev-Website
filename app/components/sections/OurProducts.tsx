@@ -3,10 +3,10 @@
 import { useState, useEffect, useRef } from 'react';
 
 const products = [
-  { id: '01', title: "Smart Infrastructure", brief: "Centralized IoT and spatial data architecture engineered for seamless facility automation." },
-  { id: '02', title: "Lexis AI", brief: "Advanced machine learning models trained on legal datasets to forecast case outcomes and mitigate risk." },
-  { id: '03', title: "CareFlow", brief: "End-to-end digital health infrastructure optimizing patient routing, staff allocation, and inventory." },
-  { id: '04', title: "MedAssist", brief: "NLP-driven diagnostic assistant featuring high-accuracy OCR for unstructured handwritten prescriptions." }
+  { id: '01', title: "Enterprise Facility Management Suite", brief: "Comprehensive ecosystem for high-rise residential and commercial property management." },
+  { id: '02', title: "Predictive Legal Analytics Engine", brief: "AI-driven litigation prediction and historical case precedent analyzer." },
+  { id: '03', title: "CareFlow: Hospital Information System", brief: "End-to-end administrative and clinical management platform for healthcare institutions." },
+  { id: '04', title: "MediScan OCR & Scheduling Agent", brief: "Intelligent prescription parsing and patient scheduling chatbot." }
 ];
 
 export default function OurProducts() {

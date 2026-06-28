@@ -213,6 +213,7 @@ export default function HomePage() {
         <PortfolioModal 
           isOpen={activeModal === 'portfolio'} 
           onClose={closeModal} 
+          onOpenContact={() => openModal('contact')}
         />
       </div>
   );

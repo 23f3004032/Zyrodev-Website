@@ -154,7 +154,7 @@ export const webProjects: Project[] = [
     title: "TutorSolve",
     category: "Web Development",
     type: "web",
-    videoUrl: "/videos/web/beanhr.mp4",
+    videoUrl: "/videos/web/tutorsolve.mp4",
     link: "https://www.tutorsolve.com/",
     description: "A comprehensive digital marketplace engineered to handle multi-sided user flows, secure scheduling, and verified credential management for academic tutoring.",
     techStack: "React | Node.js | PostgreSQL | WebRTC",
@@ -396,6 +396,61 @@ export const aiProjects: Project[] = [
   }
 ];
 
+export const internalProducts: Project[] = [
+  {
+    id: "prod-01",
+    title: "Enterprise Facility Management Suite",
+    category: "Our Products",
+    type: "web",
+    iconName: "Building2",
+    brief: "Comprehensive ecosystem for high-rise residential and commercial property management.",
+    description: "An end-to-end building administration platform designed for massive residential complexes. It centralizes tenant onboarding, maintenance ticketing, visitor gate-pass generation, and automated rent collection into a single, seamless dashboard.",
+    overview: "An end-to-end building administration platform designed for massive residential complexes. It centralizes tenant onboarding, maintenance ticketing, visitor gate-pass generation, and automated rent collection into a single, seamless dashboard.",
+    techStack: "React | Node.js | PostgreSQL | IoT Integration",
+    testimonial: "Zyrodev engineered this prototype to eliminate the administrative friction in large-scale properties. The system provides real-time oversight for facility managers while offering an intuitive mobile portal for residents and owners.",
+    operationalScope: "Zyrodev engineered this prototype to eliminate the administrative friction in large-scale properties. The system provides real-time oversight for facility managers while offering an intuitive mobile portal for residents and owners."
+  },
+  {
+    id: "prod-02",
+    title: "Predictive Legal Analytics Engine",
+    category: "Our Products",
+    type: "web",
+    iconName: "Scale",
+    brief: "AI-driven litigation prediction and historical case precedent analyzer.",
+    description: "A specialized intelligence tool for advocates and legal firms. By ingesting thousands of historical case files, the engine analyzes specific clauses and judicial precedents to forecast potential litigation outcomes and recommend strategic arguments.",
+    overview: "A specialized intelligence tool for advocates and legal firms. By ingesting thousands of historical case files, the engine analyzes specific clauses and judicial precedents to forecast potential litigation outcomes and recommend strategic arguments.",
+    techStack: "Python | Natural Language Processing | Vector Databases",
+    testimonial: "Our team developed a sophisticated semantic search and prediction algorithm that drastically reduces legal research time. The tool empowers attorneys to build data-driven strategies based on historical win-rates of similar case profiles.",
+    operationalScope: "Our team developed a sophisticated semantic search and prediction algorithm that drastically reduces legal research time. The tool empowers attorneys to build data-driven strategies based on historical win-rates of similar case profiles."
+  },
+  {
+    id: "prod-03",
+    title: "CareFlow: Hospital Information System",
+    category: "Our Products",
+    type: "web",
+    iconName: "Hospital",
+    brief: "End-to-end administrative and clinical management platform for healthcare institutions.",
+    description: "A massive, centralized hospital management system built to handle the entire patient lifecycle—from automated OPD registration and bed allocation to secure EHR (Electronic Health Records) management and pharmacy billing.",
+    overview: "A massive, centralized hospital management system built to handle the entire patient lifecycle—from automated OPD registration and bed allocation to secure EHR (Electronic Health Records) management and pharmacy billing.",
+    techStack: "Next.js | Java Spring Boot | HIPAA-Compliant Architecture",
+    testimonial: "Zyrodev architected this platform to solve enterprise-level healthcare bottlenecks. By unifying clinical and administrative data, the system ensures zero data loss between departments and accelerates patient discharge times.",
+    operationalScope: "Zyrodev architected this platform to solve enterprise-level healthcare bottlenecks. By unifying clinical and administrative data, the system ensures zero data loss between departments and accelerates patient discharge times."
+  },
+  {
+    id: "prod-04",
+    title: "MediScan OCR & Scheduling Agent",
+    category: "Our Products",
+    type: "web",
+    iconName: "FileText",
+    brief: "Intelligent prescription parsing and patient scheduling chatbot.",
+    description: "An advanced medical AI tool that utilizes Optical Character Recognition (OCR) to scan handwritten doctor prescriptions. It instantly translates the text into a readable format, logs the medication names and dosages, and automatically schedules the follow-up appointment.",
+    overview: "An advanced medical AI tool that utilizes Optical Character Recognition (OCR) to scan handwritten doctor prescriptions. It instantly translates the text into a readable format, logs the medication names and dosages, and automatically schedules the follow-up appointment.",
+    techStack: "Computer Vision | OCR | Conversational AI | Node.js",
+    testimonial: "This solution bridges the gap between physical clinical notes and digital patient care. We built the AI to handle high levels of handwriting variance, ensuring patients never miss a dosage or follow-up due to illegible prescriptions.",
+    operationalScope: "This solution bridges the gap between physical clinical notes and digital patient care. We built the AI to handle high levels of handwriting variance, ensuring patients never miss a dosage or follow-up due to illegible prescriptions."
+  }
+];
+
 // Team Members
 export const teamMembers: TeamMember[] = [
   {
@@ -440,5 +495,6 @@ export const teamMembers: TeamMember[] = [
 export const projects: Project[] = [
   ...mobileProjects,
   ...webProjects,
-  ...aiProjects
+  ...aiProjects,
+  ...internalProducts
 ];

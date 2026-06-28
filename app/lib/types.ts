@@ -13,6 +13,10 @@ export interface Project {
   link?: string;
   testimonial?: string; // Customer feedback/testimonial
   techStack?: string; // Tech stack string
+  iconName?: string; // Optional icon name for products
+  brief?: string;
+  overview?: string;
+  operationalScope?: string;
 }
 
 export interface CursorPosition {
