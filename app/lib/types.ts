@@ -12,6 +12,7 @@ export interface Project {
   image?: string; // Made optional as we're using videos
   link?: string;
   testimonial?: string; // Customer feedback/testimonial
+  techStack?: string; // Tech stack string
 }
 
 export interface CursorPosition {

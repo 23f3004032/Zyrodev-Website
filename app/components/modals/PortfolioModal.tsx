@@ -195,6 +195,12 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                           <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Project Overview</h3>
                           <p className="text-slate-300 text-sm md:text-base leading-relaxed mt-2">{selectedProject.description}</p>
                         </div>
+                        {selectedProject.techStack && (
+                          <div>
+                            <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Tech Stack</h3>
+                            <p className="text-cyan-400 font-mono text-xs md:text-sm mt-2">{selectedProject.techStack}</p>
+                          </div>
+                        )}
                         <div>
                           <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Category</h3>
                           <span className="inline-block mt-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs rounded-full font-mono">
@@ -210,7 +216,7 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                               rel="noopener noreferrer" 
                               className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500 text-cyan-400 text-xs rounded-full font-mono hover:bg-cyan-500 hover:text-black transition-all duration-300"
                             >
-                              View Live Project
+                              Visit Live Platform
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
                           </div>
@@ -258,6 +264,12 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                           <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Project Overview</h3>
                           <p className="text-slate-300 text-sm md:text-base leading-relaxed mt-2">{selectedProject.description}</p>
                         </div>
+                        {selectedProject.techStack && (
+                          <div>
+                            <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Tech Stack</h3>
+                            <p className="text-cyan-400 font-mono text-xs md:text-sm mt-2">{selectedProject.techStack}</p>
+                          </div>
+                        )}
                         <div>
                           <h3 className="text-sm font-mono uppercase text-slate-500 tracking-wider">Category</h3>
                           <span className="inline-block mt-2 px-3 py-1 bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs rounded-full font-mono">
@@ -273,7 +285,7 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                               rel="noopener noreferrer" 
                               className="inline-flex items-center gap-2 px-4 py-2 bg-cyan-500/10 border border-cyan-500 text-cyan-400 text-xs rounded-full font-mono hover:bg-cyan-500 hover:text-black transition-all duration-300"
                             >
-                              View Live Project
+                              Visit Live Platform
                               <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" /></svg>
                             </a>
                           </div>
@@ -342,11 +354,22 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                         transition={{ delay: index * 0.04 }}
                         className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-800 aspect-[9/16]"
                       >
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                        />
+                        {project.videoUrl ? (
+                          <video 
+                            src={project.videoUrl} 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl" 
+                          />
+                        ) : (
+                          <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                          />
+                        )}
                         <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300 z-10">
                           <h3 className="text-white font-bold text-center px-4 text-lg md:text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                             {project.title}
@@ -372,11 +395,22 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
                         transition={{ delay: index * 0.04 }}
                         className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-800 aspect-video"
                       >
-                        <img 
-                          src={project.image} 
-                          alt={project.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
-                        />
+                        {project.videoUrl ? (
+                          <video 
+                            src={project.videoUrl} 
+                            autoPlay 
+                            loop 
+                            muted 
+                            playsInline
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 rounded-xl" 
+                          />
+                        ) : (
+                          <img 
+                            src={project.image} 
+                            alt={project.title} 
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                          />
+                        )}
                         <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300 z-10">
                           <h3 className="text-white font-bold text-center px-4 text-lg md:text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
                             {project.title}
