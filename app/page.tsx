@@ -101,6 +101,12 @@ export default function HomePage() {
                   Start a Project
                 </button>
                 <button
+                  onClick={() => openModal('portfolio')}
+                  className="w-full sm:w-auto bg-transparent border border-slate-600 text-white px-6 py-3 rounded-full font-mono text-sm hover:border-cyan-400 transition-all duration-300 font-semibold select-none interactive"
+                >
+                  Our Portfolio
+                </button>
+                <button
                   onClick={() => openModal('meeting')}
                   className="w-full sm:w-auto bg-transparent border border-slate-600 text-white px-6 py-3 rounded-full font-mono text-sm hover:border-cyan-400 transition-all duration-300 font-semibold select-none interactive"
                 >

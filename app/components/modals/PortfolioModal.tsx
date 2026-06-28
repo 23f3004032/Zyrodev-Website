@@ -116,7 +116,7 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
   return (
     <AnimatePresence>
       <motion.div
-        className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4"
+        className="fixed inset-0 bg-black/85 backdrop-blur-md z-50 flex items-center justify-center p-4 md:p-8"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -126,7 +126,7 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
 
         <motion.div
           ref={modalRef}
-          className="relative bg-slate-950 border border-slate-800 rounded-xl max-w-6xl w-full max-h-[90vh] shadow-2xl flex flex-col overflow-hidden z-10"
+          className="relative w-full max-w-7xl h-full max-h-[90vh] bg-slate-950 border border-slate-800 rounded-xl flex flex-col overflow-hidden z-10"
           initial={{ scale: 0.95, opacity: 0, y: 15 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           exit={{ scale: 0.95, opacity: 0, y: 15 }}
@@ -299,7 +299,7 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
               <div className="p-6 border-b border-slate-800 bg-slate-950 z-10 flex justify-between items-center select-none">
                 <div className="text-left">
                   <h2 className="text-2xl md:text-3xl font-extrabold text-white uppercase tracking-tight">Our Portfolio</h2>
-                  <p className="text-slate-400 font-mono text-xs mt-1">&gt; Engineering realizations across core verticals</p>
+                  <p className="text-slate-400 font-mono text-xs mt-1">&gt; Engineering realizations across core verticals, Click to know more </p>
                 </div>
                 <button 
                   onClick={onClose} 
@@ -329,30 +329,31 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
               </div>
 
               {/* Scrollable Projects Grid */}
-              <div ref={scrollContainerRef} className="overflow-y-auto flex-1">
+              <div ref={scrollContainerRef} className="flex-1 overflow-y-auto p-2 md:p-6 custom-scrollbar">
                 {/* Mobile Apps - Portrait Grid */}
                 {activeCategory === 'mobile' && (
-                  <div className="p-6 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
                     {getFilteredProjects().map((project, index) => (
                       <motion.div
                         key={`${project.id}-${index}`}
-                        className="group cursor-pointer text-left"
                         onClick={() => setSelectedProject(project)}
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.04 }}
+                        className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-800 aspect-[9/16]"
                       >
-                        <div className="relative overflow-hidden rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 aspect-[9/16]">
-                          <img 
-                            src={project.image} 
-                            alt={project.title} 
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" 
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                            <h3 className="text-white font-mono text-xs font-bold truncate w-full">
-                              {project.title}
-                            </h3>
-                          </div>
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        />
+                        <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300 z-10">
+                          <h3 className="text-white font-bold text-center px-4 text-lg md:text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            {project.title}
+                          </h3>
+                          <button className="mt-4 px-5 py-2 border border-cyan-500 text-white text-xs md:text-sm font-mono rounded-full hover:bg-cyan-500 hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 duration-300 delay-75">
+                            Explore
+                          </button>
                         </div>
                       </motion.div>
                     ))}
@@ -361,27 +362,28 @@ export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps)
 
                 {/* Web, AI & Products - Landscape Grid */}
                 {(activeCategory === 'web' || activeCategory === 'ai' || activeCategory === 'products') && (
-                  <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {getFilteredProjects().map((project, index) => (
                       <motion.div
                         key={`${project.id}-${index}`}
-                        className="group cursor-pointer text-left"
                         onClick={() => setSelectedProject(project)}
                         initial={{ opacity: 0, y: 15 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: index * 0.04 }}
+                        className="group relative overflow-hidden rounded-xl cursor-pointer border border-slate-800 aspect-video"
                       >
-                        <div className="relative overflow-hidden rounded-lg bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition-all duration-300 aspect-[16/9] flex items-center justify-center p-4">
-                          <img 
-                            src={project.image} 
-                            alt={project.title} 
-                            className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" 
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-3">
-                            <h3 className="text-white font-mono text-xs font-bold truncate w-full">
-                              {project.title}
-                            </h3>
-                          </div>
+                        <img 
+                          src={project.image} 
+                          alt={project.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                        />
+                        <div className="absolute inset-0 bg-slate-950/85 backdrop-blur-sm opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center transition-all duration-300 z-10">
+                          <h3 className="text-white font-bold text-center px-4 text-lg md:text-xl translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                            {project.title}
+                          </h3>
+                          <button className="mt-4 px-5 py-2 border border-cyan-500 text-white text-xs md:text-sm font-mono rounded-full hover:bg-cyan-500 hover:text-black transition-colors translate-y-4 group-hover:translate-y-0 duration-300 delay-75">
+                            Explore
+                          </button>
                         </div>
                       </motion.div>
                     ))}
