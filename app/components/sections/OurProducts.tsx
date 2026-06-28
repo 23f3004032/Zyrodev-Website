@@ -72,19 +72,19 @@ export default function OurProducts() {
   return (
     <div
       ref={containerRef}
-      className="h-[400vh] relative bg-gradient-to-b from-[#111111] via-[#111111] to-[#0A0D14] text-white"
+      className="h-auto md:h-[400vh] relative bg-gradient-to-b from-[#111111] via-[#111111] to-[#0A0D14] text-white"
     >
       {/* Smooth Background Transition Overlay */}
       <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black to-transparent z-10 pointer-events-none" />
 
       {/* Sticky view locking viewport */}
-      <div className="sticky top-0 h-screen w-full flex flex-col items-center justify-center overflow-hidden px-4 md:px-6">
+      <div className="relative md:sticky md:top-0 h-auto md:h-screen w-full flex flex-col items-center justify-center overflow-visible md:overflow-hidden px-4 md:px-6 py-12 md:py-0">
         
         {/* Glowing grid mesh background */}
         <div className="pointer-events-none -z-10 absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f1a_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f1a_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)]" />
 
         {/* Unified centered column container */}
-        <div className="w-full max-w-7xl flex flex-col items-center justify-center gap-4 md:gap-8 py-4">
+        <div className="w-full max-w-7xl flex flex-col items-center justify-center gap-6 md:gap-12 py-4">
 
           {/* Section Header */}
           <div className="text-center flex-none">
@@ -98,16 +98,16 @@ export default function OurProducts() {
 
           {/* Desktop Viewport Layout (Grid: Left Columns, Center Dial, Right Columns) */}
           {!isMobile ? (
-            <div className="w-full flex flex-row items-center justify-between gap-12 flex-1">
+            <div className="w-full flex flex-row items-center justify-between gap-8 lg:gap-16 flex-1">
               
               {/* Left Side: Products 01 and 03 */}
-              <div className="w-1/3 flex flex-col gap-16 text-right">
+              <div className="w-[38%] flex flex-col gap-12 md:gap-16 text-right">
                 <ProductCard product={products[0]} isActive={activeIndex === 0} alignRight={true} />
                 <ProductCard product={products[2]} isActive={activeIndex === 2} alignRight={true} />
               </div>
 
               {/* Center Disk: Rotating Ring with Pulsing Branding Logo */}
-              <div className="w-80 h-80 relative flex items-center justify-center flex-none select-none">
+              <div className="w-64 h-64 relative flex items-center justify-center flex-none select-none">
                 
                 {/* Rotating Ring SVG */}
                 <svg
@@ -148,18 +148,18 @@ export default function OurProducts() {
                 </svg>
 
                 {/* Central Zyrodev Logo with breathing neon pulse */}
-                <div className="relative z-10 w-32 h-32 rounded-full bg-black/60 border border-cyan-500/20 backdrop-blur-md flex items-center justify-center shadow-[0_0_35px_rgba(6,182,212,0.15)] select-none">
+                <div className="relative z-10 w-28 h-28 rounded-full bg-black/60 border border-cyan-500/20 backdrop-blur-md flex items-center justify-center shadow-[0_0_35px_rgba(6,182,212,0.15)] select-none">
                   <img
                     src="/logo.svg"
                     alt="Zyrodev Logo"
-                    className="w-16 h-16 md:w-20 md:h-20 object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
+                    className="w-14 h-14 md:w-16 md:h-16 object-contain drop-shadow-[0_0_15px_rgba(6,182,212,0.8)] animate-pulse"
                   />
                 </div>
 
               </div>
 
               {/* Right Side: Products 02 and 04 */}
-              <div className="w-1/3 flex flex-col gap-16 text-left">
+              <div className="w-[38%] flex flex-col gap-12 md:gap-16 text-left">
                 <ProductCard product={products[1]} isActive={activeIndex === 1} alignRight={false} />
                 <ProductCard product={products[3]} isActive={activeIndex === 3} alignRight={false} />
               </div>
@@ -167,7 +167,7 @@ export default function OurProducts() {
             </div>
           ) : (
             /* Mobile Stack Layout (Top Central Disk, 4 cards stacked tightly below) */
-            <div className="w-full flex flex-col items-center gap-2 mt-2">
+            <div className="w-full flex flex-col items-center gap-4 mt-2">
               
               {/* Scaled-down Rotating Disk */}
               <div className="w-48 h-48 relative flex items-center justify-center flex-none select-none my-1 flex-shrink-0">
@@ -213,7 +213,7 @@ export default function OurProducts() {
               </div>
 
               {/* Vertical Cards Stack with custom gaps for mobile fitting */}
-              <div className="flex flex-col gap-2 w-full max-w-md flex-shrink-0">
+              <div className="flex flex-col gap-4 w-full max-w-md flex-shrink-0">
                 {products.map((product, idx) => (
                   <ProductCard
                     key={product.id}
@@ -244,7 +244,7 @@ function ProductCard({
 }) {
   return (
     <div
-      className={`p-3 md:p-6 rounded-xl border transition-all duration-500 flex flex-col w-full text-left relative z-10 ${
+      className={`p-4 md:p-6 rounded-xl border transition-all duration-500 flex flex-col w-full text-left relative z-10 ${
         alignRight ? 'md:text-right' : 'md:text-left'
       } ${
         isActive
@@ -253,7 +253,7 @@ function ProductCard({
       }`}
     >
       {/* Title block */}
-      <div className={`flex items-center gap-3 mb-1.5 md:mb-3 w-full ${
+      <div className={`flex items-center gap-3 mb-2 md:mb-3.5 w-full ${
         alignRight ? 'md:justify-end' : 'md:justify-start'
       }`}>
         <span className={`font-mono text-xs md:text-sm font-bold ${
@@ -267,7 +267,7 @@ function ProductCard({
       </div>
 
       {/* Description Brief */}
-      <p className="text-[11px] md:text-sm font-sans font-light leading-relaxed select-none text-slate-400">
+      <p className="text-xs md:text-[13px] md:leading-relaxed font-sans font-light select-none text-slate-400">
         {product.brief}
       </p>
     </div>
