@@ -12,8 +12,8 @@ interface PortfolioModalProps {
 }
 
 const categories = [
-  { id: 'mobile', name: 'Mobile Apps' },
   { id: 'web', name: 'Web Development' },
+  { id: 'mobile', name: 'Mobile Apps' },
   { id: 'ai', name: 'AI/ML Solutions' },
   { id: 'products', name: 'Our Products' }
 ];
@@ -64,7 +64,7 @@ const ourProducts: Project[] = [
 export default function PortfolioModal({ isOpen, onClose }: PortfolioModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [activeCategory, setActiveCategory] = useState('mobile');
+  const [activeCategory, setActiveCategory] = useState('web');
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isMobile, setIsMobile] = useState(false);
 
